@@ -1,0 +1,9 @@
+C:\Documents and Settings\admin\Desktop\project\ProjectSol\ASPProject\ASPProject\bin\ASPProject.dll
+C:\Documents and Settings\admin\Desktop\project\ProjectSol\ASPProject\ASPProject\bin\ASPProject.pdb
+C:\Documents and Settings\admin\Desktop\project\ProjectSol\ASPProject\ASPProject\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\admin\Desktop\project\ProjectSol\ASPProject\ASPProject\obj\Debug\ASPProject.dll
+C:\Documents and Settings\admin\Desktop\project\ProjectSol\ASPProject\ASPProject\obj\Debug\ASPProject.pdb
+D:\Projects\aspNet\project\ProjectSol\ASPProject\ASPProject\bin\ASPProject.dll
+D:\Projects\aspNet\project\ProjectSol\ASPProject\ASPProject\bin\ASPProject.pdb
+D:\Projects\aspNet\project\ProjectSol\ASPProject\ASPProject\obj\Debug\ASPProject.dll
+D:\Projects\aspNet\project\ProjectSol\ASPProject\ASPProject\obj\Debug\ASPProject.pdb
