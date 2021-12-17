@@ -7,3 +7,7 @@ D:\Projects\aspNet\project\ProjectSol\ASPProject\ASPProject\bin\ASPProject.dll
 D:\Projects\aspNet\project\ProjectSol\ASPProject\ASPProject\bin\ASPProject.pdb
 D:\Projects\aspNet\project\ProjectSol\ASPProject\ASPProject\obj\Debug\ASPProject.dll
 D:\Projects\aspNet\project\ProjectSol\ASPProject\ASPProject\obj\Debug\ASPProject.pdb
+D:\Projects\aspNet\shiny-asp-project-cake\ProjectSol\ASPProject\ASPProject\bin\ASPProject.dll
+D:\Projects\aspNet\shiny-asp-project-cake\ProjectSol\ASPProject\ASPProject\bin\ASPProject.pdb
+D:\Projects\aspNet\shiny-asp-project-cake\ProjectSol\ASPProject\ASPProject\obj\Debug\ASPProject.dll
+D:\Projects\aspNet\shiny-asp-project-cake\ProjectSol\ASPProject\ASPProject\obj\Debug\ASPProject.pdb
