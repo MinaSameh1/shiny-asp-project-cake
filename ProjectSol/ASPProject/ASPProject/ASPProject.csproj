@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=4.1.7.607, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -610,6 +613,7 @@
     <Content Include="include\js\pooper-min.js" />
     <Content Include="index.aspx" />
     <Content Include="Login.ascx" />
+    <Content Include="Login Page.aspx" />
     <Content Include="Page.aspx" />
     <Content Include="Register.ascx" />
     <Content Include="termsEtc.aspx" />
@@ -648,6 +652,13 @@
     </Compile>
     <Compile Include="Login.ascx.designer.cs">
       <DependentUpon>Login.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Login Page.aspx.cs">
+      <DependentUpon>Login Page.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login Page.aspx.designer.cs">
+      <DependentUpon>Login Page.aspx</DependentUpon>
     </Compile>
     <Compile Include="Page.aspx.cs">
       <DependentUpon>Page.aspx</DependentUpon>

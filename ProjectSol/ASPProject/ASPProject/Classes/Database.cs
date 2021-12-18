@@ -14,15 +14,20 @@ namespace ASPProject
     {
         SqlConnection con = null;
         SqlCommand cmd = null;
-        String ConnectionString;
+        String ConnectionString = "";
 
         // Start the connection in the constructor
         public Database()
         {
+            con = new SqlConnection();
+
             ConnectionStringSettings Settings = ConfigurationManager.ConnectionStrings["DBConnection"];
+
             if (Settings == null || string.IsNullOrEmpty(Settings.ConnectionString))
                 throw new Exception("Fatal error: missing connecting string in web.config file");
+
             ConnectionString = Settings.ConnectionString;
+
             con.ConnectionString = (
                 ConnectionString
                 );
@@ -87,7 +92,7 @@ namespace ASPProject
 
 
         // Searchs in DB for user and returns a User Object
-        public User getUser(string email, string password, string name = null)
+        public User getUser(string pass, string name = "0", string email="0")
         {
             try
             {
@@ -95,27 +100,27 @@ namespace ASPProject
                 {
                     PrepareCmd();
                 }
-                if (name == null)
+                if (name == "0")
                 {
                     cmd.CommandText =
                         "SELECT * FROM users WHERE Email=@Val1 AND pass=@Val2";
                     cmd.Parameters.Add(email);
-                    cmd.Parameters.Add(password);
+                    cmd.Parameters.Add(pass);
                 }
-                else if (name != null && email == null)
+                else if (name != "0" && email == "0" )
                 {
                     cmd.CommandText =
-                        "SELECT * FROM users WHERE userName=@Val1 AND pass=@Val2 ";
-                    cmd.Parameters.Add(name);
-                    cmd.Parameters.Add(password);
+                        "SELECT * FROM users WHERE userName= @ Val1 AND pass = @Val2 ";
+                    cmd.Parameters.AddWithValue("@Val1", name);
+                    cmd.Parameters.AddWithValue("@Val2", pass);
                 }
                 else
                 {
                     cmd.CommandText =
-                        "SELECT * FROM users WHERE userName=@Val1 AND Eamil=@Val2 AND pass=@Val3";
+                        "SELECT * FROM users WHERE userName = @Val1 AND Eamil = @Val2 AND pass = @Val3";
                     cmd.Parameters.Add(name);
                     cmd.Parameters.Add(email);
-                    cmd.Parameters.Add(password);
+                    cmd.Parameters.Add(pass);
                 }
 
 
@@ -125,8 +130,7 @@ namespace ASPProject
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     // Fill the user object with the data
-                    while (reader.Read())
-                    {
+                    while (reader.Read()) {
                         user.ID = reader.GetInt32(0);
                         user.name = reader.GetString(1);
                         user.pass = reader.GetString(2);
@@ -141,9 +145,9 @@ namespace ASPProject
                 // return it 
                 return user;
             }
-            catch
+            catch(Exception ex)
             {
-                throw new Exception("Fatal Error: error in GetUser by values");
+                throw new Exception("Fatal Error: error in GetUser by values" + ex);
             }
         }
 

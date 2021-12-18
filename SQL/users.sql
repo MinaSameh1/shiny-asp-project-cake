@@ -15,7 +15,7 @@ GO
 CREATE TABLE users (
   userID int IDENTITY(1,1) NOT NULL,
   userName varchar(17) DEFAULT NULL,
-  pass varchar(255) DEFAULT NULL,
+  pass varchar(17) DEFAULT NULL,
   Email varchar(255) DEFAULT NULL,
   age int DEFAULT NULL,
   DOB date DEFAULT NULL,

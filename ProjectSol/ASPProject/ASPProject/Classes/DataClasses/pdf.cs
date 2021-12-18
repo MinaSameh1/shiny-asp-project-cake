@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace ASPProject.Classes.DataClasses
 {
@@ -17,7 +19,7 @@ namespace ASPProject.Classes.DataClasses
 
         public void DeleteFromDB()
         {
-            if (this.pdfId == null)
+            if (this.pdfId == 0 ||  this.pdfId == null)
                 return;
             Database db = new Database();
             db.OpenCon();
@@ -26,7 +28,19 @@ namespace ASPProject.Classes.DataClasses
 
         void DataClass.Update()
         {
-            throw new NotImplementedException();
+            Database db = new Database();
+            db.OpenCon();
+            SqlCommand cmd = db.getCmd();
+            cmd.CommandText = "UPDATE pdf " +
+                            "SET bookID = @Val1 " +
+                            ", pdfLocation = @Val2 " +
+                            "WHERE pdfID = @pdfid ";
+            cmd.Parameters.Add(this.BookID);
+            cmd.Parameters.Add(this.pdfLocation);
+            cmd.Parameters.Add(this.pdfId);
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+            db.close();
         }
     }
 }

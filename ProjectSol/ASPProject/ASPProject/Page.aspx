@@ -4,16 +4,7 @@
 
 <asp:Content ID="Content1" runat="server" 
     contentplaceholderid="ContentPlaceHolder1">
-    <form runat=server>
-    This is a page! <br />
-    <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox> 
-    <br />
-    <br />
-    <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
-    <br />
-    <br />
-    <asp:Button ID="Button1" runat="server" Text="Button" onclick="Button1_Click" />
-    </form>
+
 
 </asp:Content>
 

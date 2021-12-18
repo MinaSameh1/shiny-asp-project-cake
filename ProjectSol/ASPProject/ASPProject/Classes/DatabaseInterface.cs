@@ -15,32 +15,32 @@ namespace ASPProject.Classes
     public interface DatabaseInterface
     {
         // Opens connection to db
-         void OpenCon();
+        void OpenCon();
         // Gets the connection for use if needed
-         SqlConnection getCon();
+        SqlConnection getCon();
         // Starts the cmd and prepares it
-         void PrepareCmd();
+        void PrepareCmd();
         // Gets the cmd for use if needed
-         SqlCommand getCmd();
+        SqlCommand getCmd();
         // Closes the DB
-         void close();
+        void close();
         // Gets a reader 
-         SqlDataReader getReader(String Query);
+        SqlDataReader getReader(String Query);
         // Returns DataTable for use from DBName
-         DataTable getTable(String tableName);
+        DataTable getTable(String tableName);
         // Checks users data and returns a user object
-         User getUser(String email, String password, String name = null);
+        User getUser(String email, String password, String name = null);
         // Gets the user by ID
-         User getUser(int ID);
+        User getUser(int ID);
         // Gets a pdf by bookID
-         pdf getPdf(int BookID);
+        pdf getPdf(int BookID);
         // Gets All Books
-         DataTable getBooks();
+        DataTable getBooks();
         // Gets All users
-         DataTable getUsers();
+        DataTable getUsers();
         // Get all PDFs and Book Details
-         DataTable getPDFsBooks();
+        DataTable getPDFsBooks();
         // Executes Query
-         void DeleteObject(String TableName, String ObjName, int ObjId);
+        void DeleteObject(String TableName, String ObjName, int ObjId);
     }
 }
