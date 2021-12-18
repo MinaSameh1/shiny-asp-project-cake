@@ -42,8 +42,7 @@ namespace ASPProject
         // Prepares our CMD for sql Commands
         public void PrepareCmd()
         {
-            cmd = new SqlCommand();
-            cmd.Connection = con;
+            cmd = new SqlCommand(null,con);
         }
 
         // Gets the CMD for outside use.
@@ -100,27 +99,61 @@ namespace ASPProject
                 {
                     PrepareCmd();
                 }
-                if (name == "0")
+
+                if (name == "0" && email != "0")
                 {
                     cmd.CommandText =
-                        "SELECT * FROM users WHERE Email=@Val1 AND pass=@Val2";
+                        @"SELECT * FROM users WHERE Email=@Val1 AND pass=@Val2";
                     cmd.Parameters.Add(email);
                     cmd.Parameters.Add(pass);
                 }
                 else if (name != "0" && email == "0" )
                 {
                     cmd.CommandText =
-                        "SELECT * FROM users WHERE userName= @ Val1 AND pass = @Val2 ";
-                    cmd.Parameters.AddWithValue("@Val1", name);
-                    cmd.Parameters.AddWithValue("@Val2", pass);
+                        @"SELECT * FROM users WHERE userName= @Val1 AND pass = @Val2 ";
+                    cmd.Parameters.Add(new SqlParameter()
+                    {
+                        ParameterName = "@Val1",
+                        SqlDbType = SqlDbType.VarChar,
+                        Size = 18,
+                        Value = name
+                    });
+
+                    cmd.Parameters.Add(new SqlParameter()
+                    {
+                        ParameterName = "@Val2",
+                        SqlDbType = SqlDbType.VarChar,
+                        Size = 18,
+                        Value = pass
+                    });
                 }
                 else
                 {
                     cmd.CommandText =
-                        "SELECT * FROM users WHERE userName = @Val1 AND Eamil = @Val2 AND pass = @Val3";
-                    cmd.Parameters.Add(name);
-                    cmd.Parameters.Add(email);
-                    cmd.Parameters.Add(pass);
+                        @"SELECT * FROM users WHERE userName = @Val1 AND Eamil = @Val2 AND pass = @Val3";
+                    cmd.Parameters.Add(new SqlParameter()
+                    {
+                        ParameterName = "@Val1",
+                        SqlDbType = SqlDbType.VarChar,
+                        Size = 18,
+                        Value = name
+                    });
+
+                    cmd.Parameters.Add(new SqlParameter()
+                    {
+                        ParameterName = "@Val2",
+                        SqlDbType = SqlDbType.VarChar,
+                        Size = 18,
+                        Value = email
+                    });
+
+                    cmd.Parameters.Add(new SqlParameter()
+                    {
+                        ParameterName = "@Val3",
+                        SqlDbType = SqlDbType.VarChar,
+                        Size = 18,
+                        Value = pass
+                    });
                 }
 
 
@@ -136,10 +169,11 @@ namespace ASPProject
                         user.pass = reader.GetString(2);
                         user.email = reader.GetString(3);
                         user.age = reader.GetInt32(4);
-                        user.DOB = reader.GetDateTime(5);
-                        user.isAdmin = reader.GetInt32(6) == 1 ? true : false;
+                        user.DOB = reader.IsDBNull(5) ? DateTime.Now : reader.GetDateTime(5) ;
+                        user.isAdmin =
+                            (reader.IsDBNull(6) ? false : reader.GetInt32(6) == 1 ? true : false);
                         user.Blocked = reader.GetInt32(7) == 0 ? false : true;
-                        user.LastAccess = reader.GetDateTime(8);
+                        user.LastAccess = reader.IsDBNull(8) ? DateTime.Now : reader.GetDateTime(8);
                     }
                 }
                 // return it 
@@ -161,8 +195,14 @@ namespace ASPProject
                     PrepareCmd();
                 }
                 cmd.CommandText =
-                    "SELECT * FROM users WHERE userID=@Val";
-                cmd.Parameters.Add(ID);
+                    @"SELECT * FROM users WHERE userID=@Val";
+                    cmd.Parameters.Add(new SqlParameter()
+                    {
+                        ParameterName = "@Val",
+                        SqlDbType = SqlDbType.Int,
+                        Size = 4,
+                        Value = ID
+                    });
 
                 cmd.Prepare();
                 User user = new User();
@@ -170,17 +210,17 @@ namespace ASPProject
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     // Fill the user object with the data
-                    while (reader.Read())
-                    {
+                    while (reader.Read()) {
                         user.ID = reader.GetInt32(0);
                         user.name = reader.GetString(1);
                         user.pass = reader.GetString(2);
                         user.email = reader.GetString(3);
                         user.age = reader.GetInt32(4);
-                        user.DOB = reader.GetDateTime(5);
-                        user.isAdmin = reader.GetInt32(6) == 1 ? true : false;
+                        user.DOB = reader.IsDBNull(5) ? DateTime.Now : reader.GetDateTime(5) ;
+                        user.isAdmin =
+                            (reader.IsDBNull(6) ? false : reader.GetInt32(6) == 1 ? true : false);
                         user.Blocked = reader.GetInt32(7) == 0 ? false : true;
-                        user.LastAccess = reader.GetDateTime(8);
+                        user.LastAccess = reader.IsDBNull(8) ? DateTime.Now : reader.GetDateTime(8);
                     }
                 }
                 // return it 
@@ -202,8 +242,14 @@ namespace ASPProject
                     PrepareCmd();
                 }
                 cmd.CommandText =
-                    "SELECT * FROM pdf WHERE bookID=@Val";
-                cmd.Parameters.Add(BookID);
+                    @"SELECT * FROM pdf WHERE bookID=@Val";
+                cmd.Parameters.Add(new SqlParameter()
+                {
+                    ParameterName = "@Val",
+                    SqlDbType = SqlDbType.Int,
+                    Size = 4,
+                    Value = BookID
+                });
 
                 cmd.Prepare();
                 pdf pdf = new pdf();
@@ -237,7 +283,7 @@ namespace ASPProject
                     PrepareCmd();
                 }
                 cmd.CommandText =
-                    "SELECT * FROM books";
+                    @"SELECT * FROM books";
                 DataTable dt = new DataTable();
                 dt.Load(cmd.ExecuteReader());
                 return dt;
@@ -258,7 +304,7 @@ namespace ASPProject
                     PrepareCmd();
                 }
                 cmd.CommandText =
-                    "SELECT * FROM users";
+                    @"SELECT * FROM users";
                 DataTable dt = new DataTable();
                 dt.Load(cmd.ExecuteReader());
                 return dt;
@@ -279,7 +325,7 @@ namespace ASPProject
                     PrepareCmd();
                 }
                 cmd.CommandText =
-                    "SELECT * FROM books LEFT JOIN pdf ON books.bookID = pdf.BookID;";
+                    @"SELECT * FROM books LEFT JOIN pdf ON books.bookID = pdf.BookID;";
                 DataTable dt = new DataTable();
                 dt.Load(cmd.ExecuteReader());
                 return dt;
@@ -293,17 +339,45 @@ namespace ASPProject
 
         public void DeleteObject(string TableName, String ObjName, int ObjId)
         {
-            if( cmd == null )
+            try
             {
-                PrepareCmd();
+                if (cmd == null)
+                {
+                    PrepareCmd();
+                }
+                cmd.CommandText =
+                    @"DELETE FROM @Table WHERE @ObjName=@ObjId";
+
+                cmd.Parameters.Add(new SqlParameter()
+                {
+                    ParameterName = "@Table",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 18,
+                    Value = TableName
+                });
+
+                cmd.Parameters.Add(new SqlParameter()
+                {
+                    ParameterName = "@ObjName",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 18,
+                    Value = ObjName
+                });
+
+                cmd.Parameters.Add(new SqlParameter()
+                {
+                    ParameterName = "@ObjId",
+                    SqlDbType = SqlDbType.Int,
+                    Size = 4,
+                    Value = ObjId
+                });
+                cmd.Prepare();
+                cmd.ExecuteNonQuery();
             }
-            cmd.CommandText =
-                "DELETE FROM @Table WHERE @ObjName=@ObjId";
-            cmd.Parameters.Add(TableName);
-            cmd.Parameters.Add(ObjName);
-            cmd.Parameters.Add(ObjId);
-            cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            catch (Exception ex)
+            {
+                throw new Exception("Fatal Error: error in GetUser by values" + ex);
+            }
         }
     }
 }

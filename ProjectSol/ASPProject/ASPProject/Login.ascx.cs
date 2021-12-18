@@ -37,6 +37,8 @@ namespace ASPProject
                 Session["userName"] = user.name;
 
                 db.close();
+                DataClassMethods.DoUpdate(user);
+
                 Response.Redirect("index.aspx");
             }
         }

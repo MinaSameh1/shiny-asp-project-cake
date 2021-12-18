@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using ASPProject.Classes.DataClasses;
 using System.Data.SqlClient;
+using System.Data;
 
 
 namespace ASPProject.Classes 
@@ -38,42 +39,109 @@ namespace ASPProject.Classes
             this.LastAccess = LastAccess;
         }
 
-        void DataClass.DeleteFromDB()
-        {
-            if (this.ID == 0 || this.ID == null)
-                return;
-            Database db = new Database();
-            db.OpenCon();
-            db.DeleteObject("users", "ID", this.ID);
-        }
-
-        void DataClass.Update()
+         void DataClass.Update()
         {
             Database db = new Database();
             db.OpenCon();
             SqlCommand cmd = db.getCmd();
             cmd.CommandText = "UPDATE users " +
-                              "SET userName = @Val1 "  +
-                              ", pass = @Val2 " + 
-                              ", Email = @Val3 " + 
-                              ", age = @Val4 " + 
+                              "SET userName = @Val1 " +
+                              ", pass = @Val2 " +
+                              ", Email = @Val3 " +
+                              ", age = @Val4 " +
                               ", DOB = @Val5 " +
                               ", isAdmin = @Val6 " +
                               ", UserBlocked = @Val7 " +
                               ", lastaccess = @Val8 " +
                               "WHERE userID = @ID";
-            cmd.Parameters.Add(this.name);
-            cmd.Parameters.Add(this.pass);
-            cmd.Parameters.Add(this.email);
-            cmd.Parameters.Add(this.age);
-            cmd.Parameters.Add(this.DOB);
-            cmd.Parameters.Add(this.isAdmin);
-            cmd.Parameters.Add(this.Blocked);
-            cmd.Parameters.Add(this.LastAccess);
-            cmd.Parameters.Add(this.ID);
+
+
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val1",
+                SqlDbType = SqlDbType.VarChar,
+                Size = 18,
+                Value = this.name
+            });
+
+
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val2",
+                SqlDbType = SqlDbType.VarChar,
+                Size = 18,
+                Value = this.pass
+            });
+
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val3",
+                SqlDbType = SqlDbType.VarChar,
+                Size = 18,
+                Value = this.email
+            });
+
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val4",
+                SqlDbType = SqlDbType.Int,
+                Size = 4,
+                Value = this.age
+            });
+
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val5",
+                SqlDbType = SqlDbType.Date,
+                Size = 30,
+                Value = this.DOB
+            });
+
+
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val6",
+                SqlDbType = SqlDbType.Int,
+                Size = 4,
+                Value = this.isAdmin ? 1 : 0
+            });
+
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val7",
+                SqlDbType = SqlDbType.Int,
+                Size = 4,
+                Value = this.Blocked ? 1 : 0
+            });
+
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@val8",
+                SqlDbType = SqlDbType.DateTime,
+                Size = 30,
+                Value = this.LastAccess
+            });
+
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@ID",
+                SqlDbType = SqlDbType.Int,
+                Size = 4,
+                Value = this.ID
+            });
+
             cmd.Prepare();
             cmd.ExecuteNonQuery();
             db.close();
         }
+
+         void DataClass.DeleteFromDB()
+         {
+             if (this.ID == 0 || this.ID == null)
+                 return;
+             Database db = new Database();
+             db.OpenCon();
+             db.DeleteObject("users", "ID", this.ID);
+         }
     }
 }

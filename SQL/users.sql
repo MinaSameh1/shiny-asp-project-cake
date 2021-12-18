@@ -14,13 +14,13 @@ GO
 
 CREATE TABLE users (
   userID int IDENTITY(1,1) NOT NULL,
-  userName varchar(17) DEFAULT NULL,
-  pass varchar(17) DEFAULT NULL,
-  Email varchar(255) DEFAULT NULL,
+  userName varchar(17) NOT NULL,
+  pass varchar(17) NOT NULL,
+  Email varchar(255) NOT NULL,
   age int DEFAULT NULL,
   DOB date DEFAULT NULL,
-  isAdmin int DEFAULT NULL,
-  UserBlocked INT DEFAULT NULL,
+  isAdmin int DEFAULT NOT NULL,
+  UserBlocked INT DEFAULT NOT NULL,
   lastaccess datetime DEFAULT NULL,
   PRIMARY KEY (userID)
 );
