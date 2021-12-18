@@ -8,6 +8,14 @@ CREATE TABLE pdf (
 	CONSTRAINT fk_pdfbookID FOREIGN KEY (bookID) REFERENCES books(BookID)
 );
 
+CREATE TABLE pdfDownloaded (
+	pdfID INT NOT NULL,
+	userID INT NOT NULL, 
+	Downloaded DateTime NOT NULL,
+	CONSTRAINT fk_pdf_downloaded_id FOREIGN KEY (pdfID) REFERENCES pdf(pdfID),
+	CONSTRAINT fk_pdf_downloaded_user FOREIGN KEY (userID) REFERENCES users(userID)
+);
+
 INSERT INTO pdf VALUES(1,'./pdf/book1.pdf');
 
 SELECT * FROM books 
