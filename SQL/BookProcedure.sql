@@ -7,3 +7,5 @@ BEGIN
 	WHERE BookID = @ID
 END
 
+EXECUTE spGetBookById 1;
+

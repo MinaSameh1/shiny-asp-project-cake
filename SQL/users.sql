@@ -1,3 +1,13 @@
+CREATE PROCEDURE spGetUserByID
+@ID int
+as 
+BEGIN 
+	SELECT * 
+	FROM users
+	WHERE userID = @ID
+END
+
+GO 
 
 use project;
 GO 
@@ -22,4 +32,5 @@ INSERT INTO users(userName,pass,age,Email,UserBlocked) VALUES('user2','1234',21,
 INSERT INTO users(userName,pass,age,Email,UserBlocked) VALUES('Nameee','1234',18,'user@email.com',0);
 
 -- a Procedure
-Execute spGetUserById 1
+Execute spGetUserByID 1
+

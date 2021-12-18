@@ -16,7 +16,7 @@ namespace ASPProject
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("TEST!");
+            Label1.Text = TextBox1.Text;
 
         }
     }

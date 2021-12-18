@@ -622,6 +622,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\DataClass.cs" />
+    <Compile Include="Classes\DataClasses\Book.cs" />
+    <Compile Include="Classes\Database.cs" />
+    <Compile Include="Classes\DatabaseInterface.cs" />
+    <Compile Include="Classes\DataClasses\pdf.cs" />
+    <Compile Include="Classes\DataClasses\User.cs" />
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

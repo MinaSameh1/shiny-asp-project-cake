@@ -1,0 +1,4 @@
+DROP DATABASE project
+
+DROP PROCEDURE spGetBookById
+DROP PROCEDURE spGetUserByID;
