@@ -143,5 +143,93 @@ namespace ASPProject.Classes
              db.OpenCon();
              db.DeleteObject("users", "ID", this.ID);
          }
+
+
+         public void Insert()
+         {
+             Database db = new Database();
+             db.OpenCon();
+             SqlCommand cmd = db.getCmd();
+             cmd.CommandText = "INSERT INTO users VALUES( "+
+                               " @Val1 " +
+                               ",@Val2 " +
+                               ",  @Val3 " +
+                               ",  @Val4 " +
+                               ", @Val5 " +
+                               ", @Val6 " +
+                               ", @Val7 " +
+                               ", @Val8 ) " +
+
+
+             cmd.Parameters.Add(new SqlParameter()
+             {
+                 ParameterName = "@Val1",
+                 SqlDbType = SqlDbType.VarChar,
+                 Size = 18,
+                 Value = this.name
+             });
+
+
+             cmd.Parameters.Add(new SqlParameter()
+             {
+                 ParameterName = "@Val2",
+                 SqlDbType = SqlDbType.VarChar,
+                 Size = 18,
+                 Value = this.pass
+             });
+
+             cmd.Parameters.Add(new SqlParameter()
+             {
+                 ParameterName = "@Val3",
+                 SqlDbType = SqlDbType.VarChar,
+                 Size = 18,
+                 Value = this.email
+             });
+
+             cmd.Parameters.Add(new SqlParameter()
+             {
+                 ParameterName = "@Val4",
+                 SqlDbType = SqlDbType.Int,
+                 Size = 4,
+                 Value = this.age
+             });
+
+             cmd.Parameters.Add(new SqlParameter()
+             {
+                 ParameterName = "@Val5",
+                 SqlDbType = SqlDbType.Date,
+                 Size = 30,
+                 Value = this.DOB
+             });
+
+
+             cmd.Parameters.Add(new SqlParameter()
+             {
+                 ParameterName = "@Val6",
+                 SqlDbType = SqlDbType.Int,
+                 Size = 4,
+                 Value = this.isAdmin ? 1 : 0
+             });
+
+             cmd.Parameters.Add(new SqlParameter()
+             {
+                 ParameterName = "@Val7",
+                 SqlDbType = SqlDbType.Int,
+                 Size = 4,
+                 Value = this.Blocked ? 1 : 0
+             });
+
+             cmd.Parameters.Add(new SqlParameter()
+             {
+                 ParameterName = "@val8",
+                 SqlDbType = SqlDbType.DateTime,
+                 Size = 30,
+                 Value = this.LastAccess
+             });
+
+             cmd.Prepare();
+             cmd.ExecuteNonQuery();
+             db.close();
+         }
     }
 }

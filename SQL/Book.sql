@@ -8,6 +8,7 @@ BEGIN
 END
 GO
 
+
 USE project;
 GO
 CREATE TABLE books (

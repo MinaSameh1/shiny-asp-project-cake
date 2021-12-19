@@ -11,18 +11,25 @@ namespace ASPProject.Classes
          void DeleteFromDB();
         // Updates it in DB
           void Update();
+        // Inserts 
+          void Insert();
     }
 
     public class DataClassMethods
     {
-        public static void DoUpdate(DataClass dataClass)
+        public static void DoUpdate(DataClass data)
         {
-            dataClass.Update();
+            data.Update();
         }
 
-        public static void DoDelete(DataClass dataClass)
+        public static void DoInsert(DataClass data)
         {
-            dataClass.DeleteFromDB();
+            data.Insert();
+        }
+
+        public static void DoDelete(DataClass data)
+        {
+            data.DeleteFromDB();
         }
     }
 

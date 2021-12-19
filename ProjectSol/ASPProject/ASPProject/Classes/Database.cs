@@ -78,8 +78,15 @@ namespace ASPProject
                 this.PrepareCmd();
             }
             cmd.CommandText =
-                "SELECT * FROM @DBName";
-            cmd.Parameters.AddWithValue("@DBName", TableName);
+                "SELECT * FROM @TableName";
+                cmd.Parameters.Add(
+                    new SqlParameter() {
+                        ParameterName = "@TableName",
+                        SqlDbType = SqlDbType.VarChar,
+                        Size = 18,
+                        Value = TableName
+                    }
+                );
             cmd.Prepare();
             DataTable dt = new DataTable();
             dt.Load(cmd.ExecuteReader());

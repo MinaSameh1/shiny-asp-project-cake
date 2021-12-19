@@ -6,10 +6,10 @@ BEGIN
 	FROM users
 	WHERE userID = @ID
 END
-
-GO 
+-------------------------
 
 use project;
+
 GO 
 
 CREATE TABLE users (
@@ -19,8 +19,8 @@ CREATE TABLE users (
   Email varchar(255) NOT NULL,
   age int DEFAULT NULL,
   DOB date DEFAULT NULL,
-  isAdmin int DEFAULT NOT NULL,
-  UserBlocked INT DEFAULT NOT NULL,
+  isAdmin INT DEFAULT(0) NOT NULL,
+  UserBlocked INT DEFAULT(0) NOT NULL,
   lastaccess datetime DEFAULT NULL,
   PRIMARY KEY (userID)
 );

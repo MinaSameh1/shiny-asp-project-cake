@@ -77,19 +77,98 @@ namespace ASPProject.Classes
                               ", description = @Val11 " +
                               ", isApproved = @Val12 " +
                          "WHERE BookID = @BookID ";
-            cmd.Parameters.Add(this.title);
-            cmd.Parameters.Add(this.author);
-            cmd.Parameters.Add(this.total_pages);
-            cmd.Parameters.Add(this.SelerID);
-            cmd.Parameters.Add(this.Lang);
-            cmd.Parameters.Add(this.price);
-            cmd.Parameters.Add(this.published_date);
-            cmd.Parameters.Add(this.uploadedDate);
-            cmd.Parameters.Add(this.series);
-            cmd.Parameters.Add(this.cover);
-            cmd.Parameters.Add(this.description);
-            cmd.Parameters.Add(this.isApproved);
-            cmd.Parameters.Add(this.BookID);
+            
+            cmd.Parameters.Add( new SqlParameter()
+            {
+                ParameterName = "@Val1",
+                SqlDbType = SqlDbType.VarChar,
+                Size = 18,
+                Value = this.title
+            }); 
+
+            cmd.Parameters.Add ( new SqlParameter(){
+                ParameterName = "@Val2",
+                SqlDbType = System.Data.SqlDbType.VarChar,
+                Size = 18, 
+                Value = this.author
+        });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val3",
+                SqlDbType = System.Data.SqlDbType.VarChar,
+                Size = 50,
+                Value = this.total_pages
+            });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val4",
+                SqlDbType = System.Data.SqlDbType.Int,
+                Size = 4,
+                Value = this.SelerID
+            });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val5",
+                SqlDbType = System.Data.SqlDbType.VarChar,
+                Size = 18,
+                Value = this.Lang
+            });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val6",
+                SqlDbType = System.Data.SqlDbType.Int,
+                Size = 4,
+                Value = this.price
+            });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val7",
+                SqlDbType = System.Data.SqlDbType.VarChar,
+                Size = 18,
+                Value = this.published_date
+            });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val8",
+                SqlDbType = System.Data.SqlDbType.DateTime,
+                Size = 18,
+                Value = this.uploadedDate
+            });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val9",
+                SqlDbType = System.Data.SqlDbType.VarChar,
+                Size = 20,
+                Value = this.series
+            });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val10",
+                SqlDbType = System.Data.SqlDbType.VarChar,
+                Size = 18,
+                Value = this.cover
+            });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val11",
+                SqlDbType = System.Data.SqlDbType.VarChar,
+                Size = 500,
+                Value = this.description
+            });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val12",
+                SqlDbType = System.Data.SqlDbType.Int,
+                Size = 4,
+                Value = this.isApproved
+            });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@BookID",
+                SqlDbType = System.Data.SqlDbType.Int,
+                Size = 4,
+                Value = this.BookID
+            });
             cmd.Prepare();
             cmd.ExecuteNonQuery();
             db.close();

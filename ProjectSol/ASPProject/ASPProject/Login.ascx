@@ -3,7 +3,6 @@
 <div>
     <div class="container">
 
-      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
@@ -55,7 +54,7 @@
                             Text="Login" onclick="Button1_Click"></asp:Button>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">Don't have account?  href="Page Register">Create an account</a></p>
+                      <p class="small mb-0">Don't have account? <a href="Page Register.aspx">Create an account</a></p>
                     </div>
                   </form>
 
@@ -64,9 +63,10 @@
             </div>
           </div>
         </div>
-      </section>
     </div>
 
+    
+    
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
