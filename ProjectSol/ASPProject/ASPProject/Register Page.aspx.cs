@@ -7,15 +7,11 @@ using System.Web.UI.WebControls;
 
 namespace ASPProject
 {
-    public partial class Site1 : System.Web.UI.MasterPage
+    public partial class WebForm1 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["userID"] != null)
-            {
-                panel1.Visible = false;
-                logoutPanel.Visible = true;
-            }
+
         }
     }
 }

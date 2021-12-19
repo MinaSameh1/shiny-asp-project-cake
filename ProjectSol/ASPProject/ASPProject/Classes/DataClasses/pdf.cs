@@ -35,9 +35,62 @@ namespace ASPProject.Classes.DataClasses
                             "SET bookID = @Val1 " +
                             ", pdfLocation = @Val2 " +
                             "WHERE pdfID = @pdfid ";
-            cmd.Parameters.Add(this.BookID);
-            cmd.Parameters.Add(this.pdfLocation);
-            cmd.Parameters.Add(this.pdfId);
+            cmd.Parameters.Add(new SqlParameter() { 
+                ParameterName = "@Val1",
+                SqlDbType = System.Data.SqlDbType.Int,
+                Size = 4,
+                Value = this.BookID
+            });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val2",
+                SqlDbType = System.Data.SqlDbType.VarChar,
+                Size = 255,
+                Value = this.pdfLocation
+            });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@pdfif",
+                SqlDbType = System.Data.SqlDbType.Int,
+                Size = 4,
+                Value = this.pdfId
+            });
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+            db.close();
+        }
+
+
+        public void Insert()
+        {
+            Database db = new Database();
+            db.OpenCon();
+            SqlCommand cmd = db.getCmd();
+            cmd.CommandText = "INSERT INTO pdf VALUES(" +
+                            " @Val1 " +
+                            ", @Val2 )";
+
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val1",
+                SqlDbType = System.Data.SqlDbType.Int,
+                Size = 4,
+                Value = this.BookID
+            });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val2",
+                SqlDbType = System.Data.SqlDbType.VarChar,
+                Size = 255,
+                Value = this.pdfLocation
+            });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@pdfif",
+                SqlDbType = System.Data.SqlDbType.Int,
+                Size = 4,
+                Value = this.pdfId
+            });
             cmd.Prepare();
             cmd.ExecuteNonQuery();
             db.close();

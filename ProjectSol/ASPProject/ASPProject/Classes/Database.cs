@@ -137,7 +137,7 @@ namespace ASPProject
                 else
                 {
                     cmd.CommandText =
-                        @"SELECT * FROM users WHERE userName = @Val1 AND Eamil = @Val2 AND pass = @Val3";
+                        @"SELECT * FROM users WHERE userName = @Val1 AND Email = @Val2 AND pass = @Val3";
                     cmd.Parameters.Add(new SqlParameter()
                     {
                         ParameterName = "@Val1",
@@ -301,6 +301,44 @@ namespace ASPProject
             }
         }
 
+        // Gets all the books
+        public List<Book> getListBooks()
+        {
+            try
+            {
+                if (cmd == null)
+                {
+                    PrepareCmd();
+                }
+                cmd.CommandText =
+                    @"SELECT * FROM books";
+                List<Book> lst = new List<Book>();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Book book = new Book(
+                        reader.GetInt32(0),
+                        reader.GetString(1),
+                        reader.GetString(2),
+                        reader.GetInt32(3),
+                        reader.GetInt32(4),
+                        reader.GetString(5),
+                        reader.GetDateTime(6),
+                        reader.GetDateTime(7),
+                        reader.GetString(8),
+                        reader.GetString(9),
+                        reader.GetString(10),
+                        (reader.GetInt32(11)) == 1 ? true : false
+                        );
+                    lst.Add(book);
+                }
+                return lst;
+            }
+            catch
+            {
+                throw new Exception("Fatal Error: error in GetBooks");
+            }
+        }
         // Gets all the users
         public DataTable getUsers()
         {
@@ -388,3 +426,10 @@ namespace ASPProject
         }
     }
 }
+
+/*
+-- This is a statment to get Books with their genres
+SELECT books.BookID, books.title , genres.genreName FROM books
+JOIN booksgenres ON books.bookID = booksgenres.bookID 
+JOIN genres ON genres.genreID = booksgenres.genreID 
+*/

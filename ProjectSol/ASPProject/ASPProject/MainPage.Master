@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Library - Index</title>
+  <title>Library - MainPage</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -52,6 +52,8 @@
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="#about">About</a></li>
           <li><a class="nav-link scrollto" href="books.aspx">Books</a></li>
+          <asp:panel runat="server" id='panel1'><li><a class="nav-link scrollto" href="Login Page.aspx"> Login Or Register</a></li></asp:panel>
+          <asp:panel ID="logoutPanel" runat="server" Visible=false><li><a class="nav-link scrollto" href="Logout.aspx">Logout</a></li></asp:panel>
           <!--
           <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
@@ -61,9 +63,10 @@
                   <li><a href="#">Deep Drop Down 1</a></li>
                 </ul>
               </li>
-              -->
             </ul>
           </li>
+            -->
+
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
           <li><a class="getstarted scrollto" href="Login Page">Get Started</a></li>
         </ul>

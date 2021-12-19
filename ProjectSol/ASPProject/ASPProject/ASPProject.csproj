@@ -614,6 +614,7 @@
     <Content Include="index.aspx" />
     <Content Include="Login.ascx" />
     <Content Include="Login Page.aspx" />
+    <Content Include="Logout.aspx" />
     <Content Include="Page.aspx" />
     <Content Include="Register.ascx" />
     <Content Include="termsEtc.aspx" />
@@ -624,6 +625,7 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <Content Include="Register Page.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\DataClass.cs" />
@@ -660,6 +662,13 @@
     <Compile Include="Login Page.aspx.designer.cs">
       <DependentUpon>Login Page.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Logout.aspx.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Logout.aspx.designer.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Page.aspx.cs">
       <DependentUpon>Page.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -688,6 +697,13 @@
     </Compile>
     <Compile Include="termsEtc.aspx.designer.cs">
       <DependentUpon>termsEtc.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Register Page.aspx.cs">
+      <DependentUpon>Register Page.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Register Page.aspx.designer.cs">
+      <DependentUpon>Register Page.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

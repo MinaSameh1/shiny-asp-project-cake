@@ -7,10 +7,13 @@
           <div class="row justify-content-center">
             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
+            <asp:Label ID="Label1" runat="server" ForeColor="Red"></asp:Label>
+
+            <form runat=server>
               <div class="d-flex justify-content-center py-4">
-                <a href="index.html" class="logo d-flex align-items-center w-auto">
-                  <img src="assets/img/logo.png" alt="">
-                  <span class="d-none d-lg-block">NiceAdmin</span>
+                <a href="index.aspx" class="logo d-flex align-items-center w-auto">
+                  <img src="assets/img/logo.png" width=120 height=100 alt="Logo.png" />
+                  <span class="d-none d-lg-block">Library</span>
                 </a>
               </div><!-- End Logo -->
 
@@ -22,47 +25,54 @@
                     <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
                     <p class="text-center small">Enter your personal details to create account</p>
                   </div>
-
-                  <form class="row g-3 needs-validation" runat=server>
-                    <div class="col-12">
-                      <label for="yourName" class="form-label">Your Name</label>
-                      <input type="text" name="name" class="form-control" id="yourName" required>
-                      <div class="invalid-feedback">Please, enter your name!</div>
-                    </div>
-
                     <div class="col-12">
                       <label for="yourEmail" class="form-label">Your Email</label>
-                      <input type="email" name="email" class="form-control" id="yourEmail" required runat=server
-                      <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                      <input type="Text" name="email" class="form-control" id="email" required runat="server" />
+                      <div>
+                      <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Enter a Valid Email!" ControlToValidate="email"
+                       ForeColor="Red" ValidationExpression="^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"></asp:RegularExpressionValidator>
+                      </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Username</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please choose a username.</div>
+                        <input type="text" name="username" class="form-control" id="name" required runat="server" />
+                        <div class="invalid-feedback">
+                        Please choose a username.  
+                        </div>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
+                      <input type="password" name="password" class="form-control" id="pass" required runat="server" />
                       <div class="invalid-feedback">Please enter your password!</div>
                     </div>
 
                     <div class="col-12">
+                      <label for="yourPassword" class="form-label">Confirm Password</label>
+                      <input type="password" name="password" class="form-control" id="confPass" required runat="server" />
+                      <div >
+                      <asp:CompareValidator ForeColor=Red ID="CompareValidator1" runat="server" ErrorMessage="Confirm password isn't equal to password" 
+                      ControlToCompare="pass" ControlToValidate="confPass"></asp:CompareValidator>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
                       <div class="form-check">
-                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
+                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required runat="server" />
                         <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
                         <div class="invalid-feedback">You must agree before submitting.</div>
                       </div>
                     </div>
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Create Account</button>
+                      <asp:Button ID="Button1" class="btn btn-primary w-100" runat="server" 
+                            Text="Create Account" runat=server onclick="Button1_Click"></asp:Button>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">Already have an account? <a href="pages-login.html">Log in</a></p>
+                      <p class="small mb-0">Already have an account? <a href="Login Page.aspx">Log in</a></p>
                     </div>
                   </form>
 
@@ -74,11 +84,11 @@
                 <!-- You can delete the links only if you purchased the pro version. -->
                 <!-- Licensing information: https://bootstrapmade.com/license/ -->
                 <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                Designed by <a href="https://bootstrapmade.com/">BootstrapMade used By Mina Sameh</a>
               </div>
 
             </div>
-          </div>
+    </div>
         </div>
 
       </section>

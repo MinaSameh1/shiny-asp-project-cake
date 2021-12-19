@@ -15,7 +15,6 @@ namespace ASPProject.Classes
         public int total_pages { set; get; }
         public int SelerID { set; get; }
         public string Lang { set; get; }
-        public string price { set; get; }
         public DateTime published_date { set; get; }
         public DateTime uploadedDate { set; get; }
         public string series { set; get; }
@@ -28,7 +27,7 @@ namespace ASPProject.Classes
 
         public Book(
             int BookID, string title, string author, int total_pages,
-            int SelerID, string Lang, string price, DateTime published_date,
+            int SelerID, string Lang, DateTime published_date,
             DateTime uploadedDate, string series, string cover,
             string description, bool isApproved
             )
@@ -39,7 +38,6 @@ namespace ASPProject.Classes
             this.total_pages = total_pages;
             this.SelerID = SelerID;
             this.Lang = Lang;
-            this.price = price;
             this.published_date = published_date;
             this.uploadedDate = uploadedDate;
             this.series = series;
@@ -69,7 +67,6 @@ namespace ASPProject.Classes
                               ", total_pages = @Val3 " +
                               ", SelerID = @Val4 " +
                               ", Lang = @Val5 " +
-                              ", price = @Val6 " +
                               ", published_date = @Val7 " +
                               ", uploadedDate = @Val8 " +
                               ", series = @Val9 " +
@@ -113,13 +110,7 @@ namespace ASPProject.Classes
                 Size = 18,
                 Value = this.Lang
             });
-            cmd.Parameters.Add(new SqlParameter()
-            {
-                ParameterName = "@Val6",
-                SqlDbType = System.Data.SqlDbType.Int,
-                Size = 4,
-                Value = this.price
-            });
+
             cmd.Parameters.Add(new SqlParameter()
             {
                 ParameterName = "@Val7",
@@ -169,6 +160,109 @@ namespace ASPProject.Classes
                 Size = 4,
                 Value = this.BookID
             });
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+            db.close();
+        }
+
+
+        public void Insert()
+        {
+            Database db = new Database();
+            db.OpenCon();
+            SqlCommand cmd = db.getCmd();
+            cmd.CommandText = "INSERT INTO books VALUES(@Val1 " +
+                              ", @Val2 " +
+                              ", @Val3 " +
+                              ", @Val4 " +
+                              ", @Val5 " +
+                              ", @Val7 " +
+                              ", @Val8 " +
+                              ", @Val9 " +
+                              ", @Val10 " +
+                              ", @Val11 " +
+                              ", @Val12 )";
+
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val1",
+                SqlDbType = SqlDbType.VarChar,
+                Size = 18,
+                Value = this.title
+            });
+
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val2",
+                SqlDbType = System.Data.SqlDbType.VarChar,
+                Size = 18,
+                Value = this.author
+            });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val3",
+                SqlDbType = System.Data.SqlDbType.VarChar,
+                Size = 50,
+                Value = this.total_pages
+            });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val4",
+                SqlDbType = System.Data.SqlDbType.Int,
+                Size = 4,
+                Value = this.SelerID
+            });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val5",
+                SqlDbType = System.Data.SqlDbType.VarChar,
+                Size = 18,
+                Value = this.Lang
+            });
+
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val7",
+                SqlDbType = System.Data.SqlDbType.VarChar,
+                Size = 18,
+                Value = this.published_date
+            });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val8",
+                SqlDbType = System.Data.SqlDbType.DateTime,
+                Size = 18,
+                Value = this.uploadedDate
+            });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val9",
+                SqlDbType = System.Data.SqlDbType.VarChar,
+                Size = 20,
+                Value = this.series
+            });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val10",
+                SqlDbType = System.Data.SqlDbType.VarChar,
+                Size = 18,
+                Value = this.cover
+            });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val11",
+                SqlDbType = System.Data.SqlDbType.VarChar,
+                Size = 500,
+                Value = this.description
+            });
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val12",
+                SqlDbType = System.Data.SqlDbType.Int,
+                Size = 4,
+                Value = this.isApproved
+            });
+
             cmd.Prepare();
             cmd.ExecuteNonQuery();
             db.close();

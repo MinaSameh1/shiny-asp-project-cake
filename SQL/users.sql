@@ -7,14 +7,14 @@ BEGIN
 	WHERE userID = @ID
 END
 -------------------------
-
 use project;
-
 GO 
+DROP TABlE users;
+GO
 
 CREATE TABLE users (
   userID int IDENTITY(1,1) NOT NULL,
-  userName varchar(17) NOT NULL,
+  userName varchar(18) NOT NULL,
   pass varchar(17) NOT NULL,
   Email varchar(255) NOT NULL,
   age int DEFAULT NULL,
@@ -33,4 +33,3 @@ INSERT INTO users(userName,pass,age,Email,UserBlocked) VALUES('Nameee','1234',18
 
 -- a Procedure
 Execute spGetUserByID 1
-

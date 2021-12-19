@@ -35,7 +35,7 @@ namespace ASPProject.Classes
         // Gets a pdf by bookID
         pdf getPdf(int BookID);
         // Gets All Books
-        DataTable getBooks();
+        DataTable getListBooks();
         // Gets All users
         DataTable getUsers();
         // Get all PDFs and Book Details

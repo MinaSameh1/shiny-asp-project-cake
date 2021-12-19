@@ -12,7 +12,11 @@ namespace ASPProject
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["userID"] != null)
+            {
+                panel1.Visible = false;
+                logoutPanel.Visible = true;
+            }
         }
 
         public string getPageName()

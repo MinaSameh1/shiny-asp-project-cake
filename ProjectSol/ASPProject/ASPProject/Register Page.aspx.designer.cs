@@ -10,24 +10,15 @@
 namespace ASPProject {
     
     
-    public partial class Site1 {
+    public partial class WebForm1 {
         
         /// <summary>
-        /// panel1 control.
+        /// Register1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panel1;
-        
-        /// <summary>
-        /// logoutPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel logoutPanel;
+        protected global::ASPProject.Register Register1;
     }
 }

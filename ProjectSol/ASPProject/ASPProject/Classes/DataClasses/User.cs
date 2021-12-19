@@ -23,6 +23,18 @@ namespace ASPProject.Classes
 
         public User() { }
 
+        public User(string name, string pass, string email){
+            this.ID = 0;
+            this.name = name;
+            this.pass = pass;
+            this.email = email;
+            this.age = 0;
+            this.DOB = DateTime.Now;
+            this.isAdmin = false;
+            this.Blocked = false;
+            this.LastAccess = DateTime.Now;
+        }
+
         public User(
             int ID, string name, string pass, string email, int age, DateTime DOB, 
             bool isAdmin, bool Blocked, DateTime LastAccess
@@ -44,7 +56,7 @@ namespace ASPProject.Classes
             Database db = new Database();
             db.OpenCon();
             SqlCommand cmd = db.getCmd();
-            cmd.CommandText = "UPDATE users " +
+            cmd.CommandText = @"UPDATE users " +
                               "SET userName = @Val1 " +
                               ", pass = @Val2 " +
                               ", Email = @Val3 " +
@@ -147,89 +159,96 @@ namespace ASPProject.Classes
 
          public void Insert()
          {
-             Database db = new Database();
-             db.OpenCon();
-             SqlCommand cmd = db.getCmd();
-             cmd.CommandText = "INSERT INTO users VALUES( "+
-                               " @Val1 " +
-                               ",@Val2 " +
-                               ",  @Val3 " +
-                               ",  @Val4 " +
-                               ", @Val5 " +
-                               ", @Val6 " +
-                               ", @Val7 " +
-                               ", @Val8 ) " +
-
-
-             cmd.Parameters.Add(new SqlParameter()
+             try
              {
-                 ParameterName = "@Val1",
-                 SqlDbType = SqlDbType.VarChar,
-                 Size = 18,
-                 Value = this.name
-             });
+                 Database db = new Database();
+                 db.OpenCon();
+                 SqlCommand cmd = db.getCmd();
+                 cmd.CommandText = @"INSERT INTO users VALUES( " +
+                                   " @Val1 " +
+                                   ", @Val2 " +
+                                   ", @Val3 " +
+                                   ", @Val4 " +
+                                   ", @Val5 " +
+                                   ", @Val6 " +
+                                   ", @Val7 " +
+                                   ", @Val8 ) ";
 
 
-             cmd.Parameters.Add(new SqlParameter()
+                 cmd.Parameters.Add(new SqlParameter()
+                 {
+                     ParameterName = "@Val1",
+                     SqlDbType = System.Data.SqlDbType.VarChar,
+                     Size = 18,
+                     Value = this.name
+                 });
+
+
+                 cmd.Parameters.Add(new SqlParameter()
+                 {
+                     ParameterName = "@Val2",
+                     SqlDbType = SqlDbType.VarChar,
+                     Size = 17,
+                     Value = this.pass
+                 });
+
+                 cmd.Parameters.Add(new SqlParameter()
+                 {
+                     ParameterName = "@Val3",
+                     SqlDbType = SqlDbType.VarChar,
+                     Size = 18,
+                     Value = this.email
+                 });
+
+                 cmd.Parameters.Add(new SqlParameter()
+                 {
+                     ParameterName = "@Val4",
+                     SqlDbType = SqlDbType.Int,
+                     Size = 4,
+                     Value = this.age
+                 });
+
+                 cmd.Parameters.Add(new SqlParameter()
+                 {
+                     ParameterName = "@Val5",
+                     SqlDbType = SqlDbType.DateTime,
+                     Size = 30,
+                     Value = this.DOB
+                 });
+
+
+                 cmd.Parameters.Add(new SqlParameter()
+                 {
+                     ParameterName = "@Val6",
+                     SqlDbType = SqlDbType.Int,
+                     Size = 4,
+                     Value = this.isAdmin ? 1 : 0
+                 });
+
+                 cmd.Parameters.Add(new SqlParameter()
+                 {
+                     ParameterName = "@Val7",
+                     SqlDbType = SqlDbType.Int,
+                     Size = 4,
+                     Value = this.Blocked ? 1 : 0
+                 });
+
+                 cmd.Parameters.Add(new SqlParameter()
+                 {
+                     ParameterName = "@val8",
+                     SqlDbType = SqlDbType.DateTime,
+                     Size = 30,
+                     Value = this.LastAccess
+                 });
+
+                 cmd.Prepare();
+                 cmd.ExecuteNonQuery();
+                 db.close();
+             }
+             catch (Exception ex)
              {
-                 ParameterName = "@Val2",
-                 SqlDbType = SqlDbType.VarChar,
-                 Size = 18,
-                 Value = this.pass
-             });
-
-             cmd.Parameters.Add(new SqlParameter()
-             {
-                 ParameterName = "@Val3",
-                 SqlDbType = SqlDbType.VarChar,
-                 Size = 18,
-                 Value = this.email
-             });
-
-             cmd.Parameters.Add(new SqlParameter()
-             {
-                 ParameterName = "@Val4",
-                 SqlDbType = SqlDbType.Int,
-                 Size = 4,
-                 Value = this.age
-             });
-
-             cmd.Parameters.Add(new SqlParameter()
-             {
-                 ParameterName = "@Val5",
-                 SqlDbType = SqlDbType.Date,
-                 Size = 30,
-                 Value = this.DOB
-             });
-
-
-             cmd.Parameters.Add(new SqlParameter()
-             {
-                 ParameterName = "@Val6",
-                 SqlDbType = SqlDbType.Int,
-                 Size = 4,
-                 Value = this.isAdmin ? 1 : 0
-             });
-
-             cmd.Parameters.Add(new SqlParameter()
-             {
-                 ParameterName = "@Val7",
-                 SqlDbType = SqlDbType.Int,
-                 Size = 4,
-                 Value = this.Blocked ? 1 : 0
-             });
-
-             cmd.Parameters.Add(new SqlParameter()
-             {
-                 ParameterName = "@val8",
-                 SqlDbType = SqlDbType.DateTime,
-                 Size = 30,
-                 Value = this.LastAccess
-             });
-
-             cmd.Prepare();
-             cmd.ExecuteNonQuery();
-             db.close();
+                 throw new Exception("EX:" + ex);
+             }
          }
     }
 }

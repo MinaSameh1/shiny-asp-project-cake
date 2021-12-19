@@ -7,15 +7,15 @@ using System.Web.UI.WebControls;
 
 namespace ASPProject
 {
-    public partial class Site1 : System.Web.UI.MasterPage
+    public partial class Logout : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["userID"] != null)
-            {
-                panel1.Visible = false;
-                logoutPanel.Visible = true;
-            }
+            if( Session != null )
+                Session.Clear();
+            if (Response.Cookies != null)
+                Response.Cookies.Clear();
+            Response.Redirect("index.aspx");
         }
     }
 }
