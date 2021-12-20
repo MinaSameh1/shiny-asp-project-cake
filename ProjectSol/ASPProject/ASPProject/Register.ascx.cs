@@ -34,7 +34,7 @@ namespace ASPProject
                     pass.Value,
                     email.Value
                     );
-                DataClassMethods.DoInsert(user);
+                user.Insert();
                 Response.Redirect("index.aspx");
             }
         }

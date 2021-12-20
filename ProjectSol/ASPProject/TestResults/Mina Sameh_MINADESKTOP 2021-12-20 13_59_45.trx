@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="534eebb5-2fc1-4f46-97fe-4fb59604f92e" name="Mina Sameh@MINADESKTOP 2021-12-20 13:59:45" runUser="MINADESKTOP\Mina Sameh" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="7784bcbc-56d8-4bcb-a655-04e829113000">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="Mina Sameh_MINADESKTOP 2021-12-20 13_59_45">
+      <DeploymentItem filename="D:\Projects\aspNet\shiny-asp-project-cake\ProjectSol\ASPProject\ASPProject\bin\ASPProject.dll" />
+      <DeploymentItem filename="D:\Projects\aspNet\shiny-asp-project-cake\ProjectSol\ASPProject\ASPProject\include\dll\AjaxControlToolkit.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2021-12-20T13:59:45.5928804+02:00" queuing="2021-12-20T13:59:46.4257819+02:00" start="2021-12-20T13:59:46.4747818+02:00" finish="2021-12-20T13:59:48.9291193+02:00" />
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" error="0" failed="2" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="getUserTest1" storage="d:\projects\aspnet\shiny-asp-project-cake\projectsol\aspproject\testproject1\bin\debug\testproject1.dll" id="49ab56f5-e4f5-8c8d-e933-eda4e61ea9d7">
+      <Execution id="23ff78b1-bfc4-4fe5-94cb-854e38ac08dd" />
+      <TestMethod codeBase="D:/Projects/aspNet/shiny-asp-project-cake/ProjectSol/ASPProject/TestProject1/bin/Debug/TestProject1.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestProject1.DatabaseTest, TestProject1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="getUserTest1" />
+      <AspNet webSiteUrl="http://localhost:8000/">
+        <Host pathToWebApp="D:\Projects\aspNet\shiny-asp-project-cake\ProjectSol\ASPProject\ASPProject" webAppRoot="/" />
+      </AspNet>
+    </UnitTest>
+    <UnitTest name="getUserTest" storage="d:\projects\aspnet\shiny-asp-project-cake\projectsol\aspproject\testproject1\bin\debug\testproject1.dll" id="321103f8-52de-cf40-250a-4bb4fb3416b1">
+      <Execution id="76281140-c1ff-443f-9b21-f2a11bc96446" />
+      <TestMethod codeBase="D:/Projects/aspNet/shiny-asp-project-cake/ProjectSol/ASPProject/TestProject1/bin/Debug/TestProject1.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestProject1.DatabaseTest, TestProject1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="getUserTest" />
+      <AspNet webSiteUrl="http://localhost:8000/">
+        <Host pathToWebApp="D:\Projects\aspNet\shiny-asp-project-cake\ProjectSol\ASPProject\ASPProject" webAppRoot="/" />
+      </AspNet>
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="321103f8-52de-cf40-250a-4bb4fb3416b1" executionId="76281140-c1ff-443f-9b21-f2a11bc96446" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="49ab56f5-e4f5-8c8d-e933-eda4e61ea9d7" executionId="23ff78b1-bfc4-4fe5-94cb-854e38ac08dd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="76281140-c1ff-443f-9b21-f2a11bc96446" testId="321103f8-52de-cf40-250a-4bb4fb3416b1" testName="getUserTest" computerName="MINADESKTOP" startTime="2021-12-20T13:59:46.6387822+02:00" endTime="2021-12-20T13:59:48.8811192+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="76281140-c1ff-443f-9b21-f2a11bc96446">
+      <Output>
+        <ErrorInfo>
+          <Message>The Web request 'http://localhost:8000/' completed successfully without running the test. This can occur when configuring the Web application for testing fails (an ASP.NET server error occurs when processing the request), or when no ASP.NET page is executed (the URL may point to an HTML page, a Web service, or a directory listing). Running tests in ASP.NET requires the URL to resolve to an ASP.NET page and for the page to execute properly up to the Load event. The response from the request is stored in the file 'WebRequestResponse_getUserTest.html' with the test results; typically this file can be opened with a Web browser to view its contents.</Message>
+        </ErrorInfo>
+      </Output>
+      <ResultFiles>
+        <ResultFile path="MINADESKTOP\WebRequestResponse_getUserTest.html" />
+      </ResultFiles>
+    </UnitTestResult>
+    <UnitTestResult executionId="23ff78b1-bfc4-4fe5-94cb-854e38ac08dd" testId="49ab56f5-e4f5-8c8d-e933-eda4e61ea9d7" testName="getUserTest1" computerName="MINADESKTOP" startTime="2021-12-20T13:59:48.8871194+02:00" endTime="2021-12-20T13:59:48.9101207+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="23ff78b1-bfc4-4fe5-94cb-854e38ac08dd">
+      <Output>
+        <ErrorInfo>
+          <Message>The Web request 'http://localhost:8000/' completed successfully without running the test. This can occur when configuring the Web application for testing fails (an ASP.NET server error occurs when processing the request), or when no ASP.NET page is executed (the URL may point to an HTML page, a Web service, or a directory listing). Running tests in ASP.NET requires the URL to resolve to an ASP.NET page and for the page to execute properly up to the Load event. The response from the request is stored in the file 'WebRequestResponse_getUserTest1.html' with the test results; typically this file can be opened with a Web browser to view its contents.</Message>
+        </ErrorInfo>
+      </Output>
+      <ResultFiles>
+        <ResultFile path="MINADESKTOP\WebRequestResponse_getUserTest1.html" />
+      </ResultFiles>
+    </UnitTestResult>
+  </Results>
+</TestRun>

@@ -48,7 +48,7 @@ namespace ASPProject.Classes
 
         public void DeleteFromDB()
         {
-            if (this.BookID == 0 || this.BookID == null)
+            if (this.BookID == 0 )
                 return;
             Database db = new Database();
             db.OpenCon();

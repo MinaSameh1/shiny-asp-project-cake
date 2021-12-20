@@ -15,19 +15,14 @@ namespace ASPProject
             if (Session["userID"] != null)
             {
                 panel1.Visible = false;
-                logoutPanel.Visible = true;
+                ProfilePanel.Visible = true;
             }
         }
 
         public string getPageName()
         {
-            if (!this.IsPostBack)
-            {
                 //Get the Current Page Name.
                 return Path.GetFileNameWithoutExtension(Page.AppRelativeVirtualPath);
-            }
-            else
-                return "";
         }
     }
 }

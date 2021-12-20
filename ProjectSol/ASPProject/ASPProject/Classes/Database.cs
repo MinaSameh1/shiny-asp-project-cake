@@ -42,7 +42,7 @@ namespace ASPProject
         // Prepares our CMD for sql Commands
         public void PrepareCmd()
         {
-            cmd = new SqlCommand(null,con);
+            cmd = new SqlCommand(null, con);
         }
 
         // Gets the CMD for outside use.
@@ -58,7 +58,8 @@ namespace ASPProject
         // Closes all DB Connections
         public void close()
         {
-            cmd.Dispose();
+            if ( cmd != null )
+                cmd.Dispose();
             con.Close();
         }
 
@@ -79,14 +80,15 @@ namespace ASPProject
             }
             cmd.CommandText =
                 "SELECT * FROM @TableName";
-                cmd.Parameters.Add(
-                    new SqlParameter() {
-                        ParameterName = "@TableName",
-                        SqlDbType = SqlDbType.VarChar,
-                        Size = 18,
-                        Value = TableName
-                    }
-                );
+            cmd.Parameters.Add(
+                new SqlParameter()
+                {
+                    ParameterName = "@TableName",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 18,
+                    Value = TableName
+                }
+            );
             cmd.Prepare();
             DataTable dt = new DataTable();
             dt.Load(cmd.ExecuteReader());
@@ -98,7 +100,7 @@ namespace ASPProject
 
 
         // Searchs in DB for user and returns a User Object
-        public User getUser(string pass, string name = "0", string email="0")
+        public User getUser(string pass, string name = "0", string email = "0")
         {
             try
             {
@@ -114,7 +116,7 @@ namespace ASPProject
                     cmd.Parameters.Add(email);
                     cmd.Parameters.Add(pass);
                 }
-                else if (name != "0" && email == "0" )
+                else if (name != "0" && email == "0")
                 {
                     cmd.CommandText =
                         @"SELECT * FROM users WHERE userName= @Val1 AND pass = @Val2 ";
@@ -162,33 +164,36 @@ namespace ASPProject
                         Value = pass
                     });
                 }
-
-
                 cmd.Prepare();
                 User user = new User();
-                // This will auto dispose of the reader after we are done
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                DataTable dt = new DataTable();
+                using (var reader = cmd.ExecuteReader())
                 {
-                    // Fill the user object with the data
-                    while (reader.Read()) {
-                        user.ID = reader.GetInt32(0);
-                        user.name = reader.GetString(1);
-                        user.pass = reader.GetString(2);
-                        user.email = reader.GetString(3);
-                        user.age = reader.GetInt32(4);
-                        user.DOB = reader.IsDBNull(5) ? DateTime.Now : reader.GetDateTime(5) ;
-                        user.isAdmin =
-                            (reader.IsDBNull(6) ? false : reader.GetInt32(6) == 1 ? true : false);
-                        user.Blocked = reader.GetInt32(7) == 0 ? false : true;
-                        user.LastAccess = reader.IsDBNull(8) ? DateTime.Now : reader.GetDateTime(8);
+                    if (reader.FieldCount == 0)
+                        return new User();
+                    while (reader.Read())
+                    {
+
+                        // Fill the user object with the data
+                        user = new User(
+                            reader.GetInt32(0),
+                        reader.GetString(1).ToString(),
+                        reader.GetString(2).ToString(),
+                        reader.GetString(3).ToString(),
+                        reader.GetInt32(4),
+                        reader.IsDBNull(5) ? DateTime.MinValue : reader.GetDateTime(5),
+                        (reader.IsDBNull(6) ? false : reader.GetInt32(6) == 1 ? true : false),
+                        reader.GetInt32(7) == 0 ? false : true,
+                        reader.IsDBNull(8) ? DateTime.MinValue : reader.GetDateTime(8)
+                           );
                     }
                 }
                 // return it 
                 return user;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                throw new Exception("Fatal Error: error in GetUser by values" + ex);
+                throw new Exception(ex + "");
             }
         }
 
@@ -203,27 +208,30 @@ namespace ASPProject
                 }
                 cmd.CommandText =
                     @"SELECT * FROM users WHERE userID=@Val";
-                    cmd.Parameters.Add(new SqlParameter()
-                    {
-                        ParameterName = "@Val",
-                        SqlDbType = SqlDbType.Int,
-                        Size = 4,
-                        Value = ID
-                    });
+                cmd.Parameters.Add(new SqlParameter()
+                {
+                    ParameterName = "@Val",
+                    SqlDbType = SqlDbType.Int,
+                    Size = 4,
+                    Value = ID
+                });
 
                 cmd.Prepare();
                 User user = new User();
                 // This will auto dispose of the reader after we are done
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
+                    if (reader.FieldCount == 0)
+                        return new User();
                     // Fill the user object with the data
-                    while (reader.Read()) {
+                    while (reader.Read())
+                    {
                         user.ID = reader.GetInt32(0);
                         user.name = reader.GetString(1);
                         user.pass = reader.GetString(2);
                         user.email = reader.GetString(3);
                         user.age = reader.GetInt32(4);
-                        user.DOB = reader.IsDBNull(5) ? DateTime.Now : reader.GetDateTime(5) ;
+                        user.DOB = reader.IsDBNull(5) ? DateTime.Now : reader.GetDateTime(5);
                         user.isAdmin =
                             (reader.IsDBNull(6) ? false : reader.GetInt32(6) == 1 ? true : false);
                         user.Blocked = reader.GetInt32(7) == 0 ? false : true;
@@ -263,6 +271,8 @@ namespace ASPProject
                 // This will auto dispose of the reader after we are done
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
+                    if (reader.FieldCount == 0)
+                        return new pdf();
                     // Fill the user object with the data
                     while (reader.Read())
                     {
@@ -301,6 +311,45 @@ namespace ASPProject
             }
         }
 
+        // Gets all the books
+        public DataSet getDataSetBooks()
+        {
+            try
+            {
+                SqlDataAdapter da = new SqlDataAdapter(
+                    "SELECT * FROM books", con
+                    );
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                return ds;
+            }
+            catch
+            {
+                throw new Exception("Fatal Error: error in GetBooks");
+            }
+        }
+
+        public DataTable searchBook(String title)
+        {
+            if (cmd == null)
+            {
+                PrepareCmd();
+            }
+            cmd.CommandText =
+                @"SELECT * FROM books WHERE title LIKE '%'+@Val+'%'";
+            cmd.Parameters.Add(new SqlParameter()
+            {
+                ParameterName = "@Val",
+                SqlDbType = SqlDbType.VarChar,
+                Size = 18,
+                Value = title
+            });
+            cmd.Prepare();
+            DataTable dt = new DataTable();
+            dt.Load(cmd.ExecuteReader());
+            return dt;
+        }
+
         // Gets the book using ID
         public Book getBook(int ID)
         {
@@ -323,7 +372,9 @@ namespace ASPProject
                 Book book = new Book(); ;
                 using (reader = cmd.ExecuteReader())
                 {
-                    reader.Read();
+                    if (reader.FieldCount == 0)
+                        return new Book();
+                    while(reader.Read()) {
                     book.BookID = reader.GetInt32(0);
                     book.title = reader.GetString(1);
                     book.author = reader.GetString(2);
@@ -342,15 +393,18 @@ namespace ASPProject
                     book.cover = reader.GetString(9);
                     book.description = reader.GetString(10);
                     book.isApproved = (reader.GetInt32(11) == 1) ? true : false;
+                    }
                 }
                 return book;
-                
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception("Fatal Error: error in GetBook\n" + ex);
             }
         }
+
+
 
         // Gets all the books
         public List<Book> getListBooks()
@@ -371,12 +425,12 @@ namespace ASPProject
                         reader.GetInt32(0),
                         reader.GetString(1),
                         reader.GetString(2),
-                        reader.GetInt32(3),
+                        reader.IsDBNull(3) ? 0 : reader.GetInt32(3),
                         reader.GetInt32(4),
-                        reader.GetString(5),
-                        reader.GetDateTime(6),
-                        reader.GetDateTime(7),
-                        reader.GetString(8),
+                        reader.IsDBNull(5) ? "unknown" :reader.GetString(5),
+                        reader.IsDBNull(6) ? DateTime.MinValue : reader.GetDateTime(6),
+                        reader.IsDBNull(7) ? DateTime.MinValue : reader.GetDateTime(7),
+                        reader.IsDBNull(8) ? "none" : reader.GetString(8),
                         reader.GetString(9),
                         reader.GetString(10),
                         (reader.GetInt32(11)) == 1 ? true : false
@@ -385,9 +439,9 @@ namespace ASPProject
                 }
                 return lst;
             }
-            catch
+            catch(Exception ex)
             {
-                throw new Exception("Fatal Error: error in GetBooks");
+                throw new Exception("Fatal Error: error in GetBooks:" + ex);
             }
         }
         // Gets all the users
@@ -432,7 +486,7 @@ namespace ASPProject
             }
         }
 
-
+        // Deletes obj from DB using its ID
         public void DeleteObject(string TableName, String ObjName, int ObjId)
         {
             try

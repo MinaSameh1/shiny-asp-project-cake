@@ -27,7 +27,10 @@ namespace ASPProject
                 Database db = new Database();
                 db.OpenCon();
                 db.PrepareCmd();
-                User user = db.getUser(PassText.Text, UserName.Text);
+                User user = new User();
+                user = db.getUser(PassText.Text, UserName.Text);
+                if (user.ID == 0)
+                    Response.Redirect("Register Page.aspx"); 
                 if (user.Blocked)
                 {
                     return;
@@ -44,7 +47,7 @@ namespace ASPProject
                 Response.Cookies.Add(cookie);
 
                 db.close();
-                user.LastAccess = DateTime.Now;
+
                 DataClassMethods.DoUpdate(user);
 
                 if (Request.QueryString["bookID"] != null)

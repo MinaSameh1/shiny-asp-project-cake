@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="553b8e48-bddf-4961-9f58-49d58dc73860" name="Mina Sameh@MINADESKTOP 2021-12-20 14:00:01" runUser="MINADESKTOP\Mina Sameh" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="7784bcbc-56d8-4bcb-a655-04e829113000">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="Mina Sameh_MINADESKTOP 2021-12-20 14_00_01">
+      <DeploymentItem filename="D:\Projects\aspNet\shiny-asp-project-cake\ProjectSol\ASPProject\ASPProject\bin\ASPProject.dll" />
+      <DeploymentItem filename="D:\Projects\aspNet\shiny-asp-project-cake\ProjectSol\ASPProject\ASPProject\include\dll\AjaxControlToolkit.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2021-12-20T14:00:01.5097057+02:00" queuing="2021-12-20T14:00:01.6937065+02:00" start="2021-12-20T14:00:01.7087055+02:00" finish="2021-12-20T14:00:04.0526158+02:00" />
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" error="0" failed="1" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="getUserTest" storage="d:\projects\aspnet\shiny-asp-project-cake\projectsol\aspproject\testproject1\bin\debug\testproject1.dll" id="321103f8-52de-cf40-250a-4bb4fb3416b1">
+      <Execution id="27907ebb-4d3f-4d28-b7ac-8c703a96346b" />
+      <TestMethod codeBase="D:/Projects/aspNet/shiny-asp-project-cake/ProjectSol/ASPProject/TestProject1/bin/Debug/TestProject1.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestProject1.DatabaseTest, TestProject1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="getUserTest" />
+      <AspNet webSiteUrl="http://localhost:8000/">
+        <Host pathToWebApp="D:\Projects\aspNet\shiny-asp-project-cake\ProjectSol\ASPProject\ASPProject" webAppRoot="/" />
+      </AspNet>
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="321103f8-52de-cf40-250a-4bb4fb3416b1" executionId="27907ebb-4d3f-4d28-b7ac-8c703a96346b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="27907ebb-4d3f-4d28-b7ac-8c703a96346b" testId="321103f8-52de-cf40-250a-4bb4fb3416b1" testName="getUserTest" computerName="MINADESKTOP" startTime="2021-12-20T14:00:01.7807075+02:00" endTime="2021-12-20T14:00:04.0436161+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="27907ebb-4d3f-4d28-b7ac-8c703a96346b">
+      <Output>
+        <ErrorInfo>
+          <Message>Could not connect to the Web server for page 'http://localhost:8000/'. The remote server returned an error: (503) Server Unavailable.. Check that the Web server is running and visible on the network and that the page specified exists.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

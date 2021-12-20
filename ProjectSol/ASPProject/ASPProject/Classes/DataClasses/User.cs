@@ -5,6 +5,7 @@ using System.Web;
 using ASPProject.Classes.DataClasses;
 using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlTypes;
 
 
 namespace ASPProject.Classes 
@@ -51,8 +52,16 @@ namespace ASPProject.Classes
             this.LastAccess = LastAccess;
         }
 
-         void DataClass.Update()
+        public void Update()
         {
+            if (DOB == DateTime.MinValue)
+            {
+                DOB = DateTime.Today;
+            }
+            if (LastAccess == DateTime.MinValue)
+            {
+                LastAccess = DateTime.Today;
+            }
             Database db = new Database();
             db.OpenCon();
             SqlCommand cmd = db.getCmd();
@@ -74,7 +83,6 @@ namespace ASPProject.Classes
                 Size = 18,
                 Value = this.name
             });
-
 
             cmd.Parameters.Add(new SqlParameter()
             {
@@ -100,14 +108,18 @@ namespace ASPProject.Classes
                 Value = this.age
             });
 
+            if (age == 0)
+            {
+                cmd.Parameters["@Val4"].Value = DBNull.Value;
+            }
+
             cmd.Parameters.Add(new SqlParameter()
             {
                 ParameterName = "@Val5",
-                SqlDbType = SqlDbType.Date,
-                Size = 30,
-                Value = this.DOB.Date
+                SqlDbType = SqlDbType.VarChar,
+                Size = 40,
+                Value = new SqlDateTime(this.DOB).ToSqlString()
             });
-
 
             cmd.Parameters.Add(new SqlParameter()
             {
@@ -128,9 +140,9 @@ namespace ASPProject.Classes
             cmd.Parameters.Add(new SqlParameter()
             {
                 ParameterName = "@val8",
-                SqlDbType = SqlDbType.DateTime,
-                Size = 30,
-                Value = this.LastAccess
+                SqlDbType = SqlDbType.VarChar,
+                Size = 40,
+                Value = new SqlDateTime(this.LastAccess).ToSqlString()
             });
 
             cmd.Parameters.Add(new SqlParameter()
@@ -146,7 +158,7 @@ namespace ASPProject.Classes
             db.close();
         }
 
-         void DataClass.DeleteFromDB()
+         public void DeleteFromDB()
          {
              if (this.ID == 0)
                  return;
@@ -249,5 +261,6 @@ namespace ASPProject.Classes
                  throw new Exception("EX:" + ex);
              }
          }
+
     }
 }

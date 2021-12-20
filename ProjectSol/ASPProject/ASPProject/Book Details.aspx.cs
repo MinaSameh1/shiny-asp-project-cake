@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ASPProject.Classes;
+using System.Data.SqlClient;
 
 namespace ASPProject
 {
@@ -39,6 +40,18 @@ namespace ASPProject
             {
                 Response.Redirect("Login Page.aspx?bookID=" + Request.QueryString["ID"]);
             }
+            Database db = new Database();
+            db.OpenCon();
+            SqlCommand cmd = db.getCmd();
+            cmd.CommandText = "INSERT INTO pdfDownloaded VALUES" +
+           "( @pdfID " +
+           ", @userID " +
+           ", @Downloaded ) ";
+            cmd.Parameters.AddWithValue("@pdfID", Request.QueryString["ID"]);
+            cmd.Parameters.AddWithValue("@userID", Session["userID"]);
+            cmd.Parameters.AddWithValue("@Downloaded", DateTime.Now);
+            cmd.ExecuteNonQuery();
+            Response.Redirect("Download.aspx");
         }
     }
 }

@@ -1,0 +1,8 @@
+D:\Projects\aspNet\shiny-asp-project-cake\ProjectSol\ASPProject\TestProject1\bin\Debug\TestProject1.dll
+D:\Projects\aspNet\shiny-asp-project-cake\ProjectSol\ASPProject\TestProject1\bin\Debug\TestProject1.pdb
+D:\Projects\aspNet\shiny-asp-project-cake\ProjectSol\ASPProject\TestProject1\bin\Debug\AjaxControlToolkit.dll
+D:\Projects\aspNet\shiny-asp-project-cake\ProjectSol\ASPProject\TestProject1\bin\Debug\ASPProject.dll
+D:\Projects\aspNet\shiny-asp-project-cake\ProjectSol\ASPProject\TestProject1\bin\Debug\ASPProject.pdb
+D:\Projects\aspNet\shiny-asp-project-cake\ProjectSol\ASPProject\TestProject1\obj\Debug\TestProject1.csprojResolveAssemblyReference.cache
+D:\Projects\aspNet\shiny-asp-project-cake\ProjectSol\ASPProject\TestProject1\obj\Debug\TestProject1.dll
+D:\Projects\aspNet\shiny-asp-project-cake\ProjectSol\ASPProject\TestProject1\obj\Debug\TestProject1.pdb

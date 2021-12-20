@@ -19,7 +19,7 @@ namespace ASPProject.Classes.DataClasses
 
         public void DeleteFromDB()
         {
-            if (this.pdfId == 0 ||  this.pdfId == null)
+            if (this.pdfId == 0)
                 return;
             Database db = new Database();
             db.OpenCon();
