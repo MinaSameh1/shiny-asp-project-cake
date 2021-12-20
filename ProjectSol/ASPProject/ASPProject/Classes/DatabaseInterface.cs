@@ -35,12 +35,16 @@ namespace ASPProject.Classes
         // Gets a pdf by bookID
         pdf getPdf(int BookID);
         // Gets All Books
-        DataTable getListBooks();
+        DataTable getBooks();
         // Gets All users
         DataTable getUsers();
         // Get all PDFs and Book Details
         DataTable getPDFsBooks();
         // Executes Query
         void DeleteObject(String TableName, String ObjName, int ObjId);
+        // GEt book using iD
+        Book getBook(int ID);
+        // get books as list
+        List<Book> getListBooks();
     }
 }

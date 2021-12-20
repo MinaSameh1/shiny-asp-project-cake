@@ -14,7 +14,7 @@ namespace ASPProject
             if (Session["userID"] != null)
             {
                 panel1.Visible = false;
-                logoutPanel.Visible = true;
+                ProfilePanel.Visible = true;
             }
         }
     }

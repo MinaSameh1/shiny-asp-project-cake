@@ -14,7 +14,7 @@ namespace ASPProject
         {
             if (Session["userID"] != null)
             {
-                Response.Redirect("index.aspx");
+                Response.Redirect("Books.aspx");
             }
         }
 
@@ -30,7 +30,6 @@ namespace ASPProject
                 User user = db.getUser(PassText.Text, UserName.Text);
                 if (user.Blocked)
                 {
-
                     return;
                 }
 
@@ -38,10 +37,21 @@ namespace ASPProject
                 Session["userType"] = user.isAdmin;
                 Session["email"] = user.email;
                 Session["userName"] = user.name;
+                
+                HttpCookie cookie = new HttpCookie("userName");
+                cookie.Expires = DateTime.Now.AddMinutes(10);
+                cookie["userName"] = user.name;
+                Response.Cookies.Add(cookie);
 
                 db.close();
+                user.LastAccess = DateTime.Now;
                 DataClassMethods.DoUpdate(user);
 
+                if (Request.QueryString["bookID"] != null)
+                {
+                    Response.Redirect("Book Details.aspx?ID=" +
+                        Int32.Parse(Request.QueryString["bookID"]));
+                }
                 Response.Redirect("index.aspx");
 
             }

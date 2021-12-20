@@ -22,12 +22,30 @@ namespace ASPProject {
         protected global::System.Web.UI.WebControls.Panel panel1;
         
         /// <summary>
-        /// logoutPanel control.
+        /// ProfilePanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel logoutPanel;
+        protected global::System.Web.UI.WebControls.Panel ProfilePanel;
+        
+        /// <summary>
+        /// startPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel startPanel;
+        
+        /// <summary>
+        /// goBooksPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel goBooksPanel;
     }
 }

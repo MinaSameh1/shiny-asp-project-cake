@@ -67,7 +67,6 @@ namespace ASPProject.Classes
                               ", lastaccess = @Val8 " +
                               "WHERE userID = @ID";
 
-
             cmd.Parameters.Add(new SqlParameter()
             {
                 ParameterName = "@Val1",
@@ -106,7 +105,7 @@ namespace ASPProject.Classes
                 ParameterName = "@Val5",
                 SqlDbType = SqlDbType.Date,
                 Size = 30,
-                Value = this.DOB
+                Value = this.DOB.Date
             });
 
 
@@ -149,7 +148,7 @@ namespace ASPProject.Classes
 
          void DataClass.DeleteFromDB()
          {
-             if (this.ID == 0 || this.ID == null)
+             if (this.ID == 0)
                  return;
              Database db = new Database();
              db.OpenCon();

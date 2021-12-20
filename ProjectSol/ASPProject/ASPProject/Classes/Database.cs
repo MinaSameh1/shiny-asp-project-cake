@@ -301,6 +301,57 @@ namespace ASPProject
             }
         }
 
+        // Gets the book using ID
+        public Book getBook(int ID)
+        {
+            try
+            {
+                if (cmd == null)
+                {
+                    PrepareCmd();
+                }
+                cmd.CommandText =
+                    @"SELECT * FROM books WHERE BookID=@ID";
+                cmd.Parameters.Add(new SqlParameter()
+                {
+                    ParameterName = "@ID",
+                    SqlDbType = SqlDbType.Int,
+                    Size = 4,
+                    Value = ID
+                });
+                SqlDataReader reader;
+                Book book = new Book(); ;
+                using (reader = cmd.ExecuteReader())
+                {
+                    reader.Read();
+                    book.BookID = reader.GetInt32(0);
+                    book.title = reader.GetString(1);
+                    book.author = reader.GetString(2);
+                    book.total_pages = reader.GetInt32(3);
+                    book.SelerID = reader.GetInt32(4);
+                    book.Lang = reader.GetString(5);
+                    book.published_date = reader.GetDateTime(6);
+                    if (!reader.IsDBNull(7))
+                        book.uploadedDate = reader.GetDateTime(7);
+                    else
+                        book.uploadedDate = DateTime.Now;
+                    if (!reader.IsDBNull(8))
+                        book.series = reader.GetString(8);
+                    else
+                        book.series = "nan";
+                    book.cover = reader.GetString(9);
+                    book.description = reader.GetString(10);
+                    book.isApproved = (reader.GetInt32(11) == 1) ? true : false;
+                }
+                return book;
+                
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Fatal Error: error in GetBook\n" + ex);
+            }
+        }
+
         // Gets all the books
         public List<Book> getListBooks()
         {
