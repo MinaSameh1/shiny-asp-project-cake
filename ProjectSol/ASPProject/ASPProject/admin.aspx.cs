@@ -178,7 +178,7 @@ namespace ASPProject
                 {
                     // Call a helper method routine to save the file.
                     // Specify the path to save the uploaded file to.
-                    string savePath = "covers\";
+                    string savePath = "covers//";
 
                     // Get the name of the file to upload.
                     string fileName = file.FileName;

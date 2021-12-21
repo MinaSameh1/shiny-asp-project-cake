@@ -184,7 +184,9 @@
                     %>'></asp:Label>
                 </ItemTemplate>
                 <EditItemTemplate>
-                    <asp:TextBox ID="pubDateText" runat="server" Width="100px"></asp:TextBox>
+                    <asp:TextBox ID="pubDateText" runat="server" Width="100px"
+                    Text='<%# (Eval("published_date") == System.DBNull.Value) ? "" : Convert.ToDateTime(Eval("published_date")).ToShortDateString()%> '
+                    ></asp:TextBox>
                     <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="pubDateText">
                     </asp:CalendarExtender>
                 </EditItemTemplate>

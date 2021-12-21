@@ -6,8 +6,8 @@ Cypress.on('uncaught:exception', (err, runnable) => {
   // failing the test
   return false
 });
-    const username  = 'krista023';
-    const newUserName = 'krista02';
+    const username  = 'john76';
+    const newUserName = 'john75';
     const password = '12345';
 
     it('Visit Website', () => {
@@ -33,9 +33,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
         cy.get('li[class=dropdown]')
         .get('a[id=Profile]').click({force : true});
 
-        // I dunno why but click the button twice
-        cy.get('input[id=ContentPlaceHolder1_GridView1_btnEdit_0]')
-        .click({ force : true });
+        // Edit 
         cy.get('input[id=ContentPlaceHolder1_GridView1_btnEdit_0]')
         .click({ force : true });
         cy.get('input[id=ContentPlaceHolder1_GridView1_NameText_0]')

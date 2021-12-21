@@ -18,20 +18,21 @@ namespace ASPProject
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["userID"] == null)
-                Response.Redirect("Login Page.aspx");
-
             if (!Page.IsPostBack)
             {
+
                 if (Session["userID"] == null)
                     Response.Redirect("index.aspx");
+
                 Database db = new Database();
                 db.OpenCon();
                 id = int.Parse(Session["userID"] + "");
                 dt = db.getUserTable(id);
+                db.close();
                 if (dt.Rows.Count > 0)
                 {
-                    BindData(Page.IsPostBack);
+                    GridView1.DataSource = dt;
+                    GridView1.DataBind();
                 }
                 else
                 {
@@ -44,27 +45,18 @@ namespace ASPProject
                     GridView1.Rows[0].Cells[0].HorizontalAlign = HorizontalAlign.Center;
                 }
             }
-            else
-            {
-                if (dt == null)
-                {
-                    Database db = new Database();
-                    db.OpenCon();
-                    id = int.Parse(Session["userID"] + "");
-                }
-                BindData(Page.IsPostBack);
-            }
-
         }
 
-        protected void BindData(bool isPostBack)
+        protected void BindData()
         {
 
+            Database db = new Database();
+            db.OpenCon();
+            id = int.Parse(Session["userID"] + "");
+            dt = db.getUserTable(id);
             GridView1.DataSource = dt;
-            if (!isPostBack)
-            {
-                GridView1.DataBind();
-            }
+            GridView1.DataBind();
+            db.close();
         }
 
 
@@ -72,13 +64,13 @@ namespace ASPProject
         {
             //NewEditIndex property used to determine the index of the row being edited.  
             GridView1.EditIndex = e.NewEditIndex;
-            BindData(Page.IsPostBack);
+            BindData();
         }
 
         protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             GridViewRow row = GridView1.Rows[e.RowIndex];
-            Label usrID= GridView1.Rows[e.RowIndex].FindControl("lblID") as Label;
+            Label usrID = GridView1.Rows[e.RowIndex].FindControl("lblID") as Label;
             Int32 userID = int.Parse(usrID.Text);
             Database db = new Database();
             db.OpenCon();
@@ -91,10 +83,10 @@ namespace ASPProject
             user.pass = pass.Text;
             user.LastAccess = DateTime.Now;
             DataClassMethods.DoUpdate(user);
-            GridView1.EditIndex = -1;
             dt = db.getUserTable(userID);
             GridView1.DataSource = dt;
             db.close();
+            GridView1.EditIndex = -1;
             GridView1.DataBind();
         }
 
@@ -103,7 +95,7 @@ namespace ASPProject
         {
             //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
             GridView1.EditIndex = -1;
-            BindData(Page.IsPostBack); 
+            BindData();
         }
 
 
@@ -128,7 +120,7 @@ namespace ASPProject
                 user.LastAccess = DateTime.Now;
                 DataClassMethods.DoUpdate(user);
              */
-            }
+        }
 
 
 
