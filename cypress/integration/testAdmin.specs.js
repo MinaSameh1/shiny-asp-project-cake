@@ -6,7 +6,7 @@ define("Library Books - Logging in" , ()=> {
 Cypress.on('uncaught:exception', (err, runnable) => {
   // returning false here prevents Cypress from
   // failing the test
-  return false
+  return false;
 });
     const username  = 'krista023';
     const newUserName = 'krista02';
@@ -16,7 +16,6 @@ Cypress.on('uncaught:exception', (err, runnable) => {
         cy.visit('localhost:8000/index.aspx');
     });
 
-    /*
     it('Can login as admin and as user', () => {
         const user = "pamela14";
         const pass = "1234";
@@ -64,7 +63,6 @@ Cypress.on('uncaught:exception', (err, runnable) => {
         cy.get('li[class=dropdown]')
         .get('a[id=Logout]').click({force : true});
     });
-    */
 
     it('Can Add new book and user ', () => {
 
@@ -90,7 +88,6 @@ Cypress.on('uncaught:exception', (err, runnable) => {
             .get('a[id=Admin]').click({ force: true });
         //cy.viewport(1920,1080);
 
-        /*
         var randomName = faker.internet.userName(); 
         var randomEmail = faker.internet.email();
         var pass = "123456";
@@ -112,7 +109,6 @@ Cypress.on('uncaught:exception', (err, runnable) => {
         cy.get('table:first')
         .contains('td',randomName)
         .should('contain',randomName);
-        */
 
         cy.fixture('fine.png').then(fileContent => {
             cy.get('input[type="file"]').attachFile({
