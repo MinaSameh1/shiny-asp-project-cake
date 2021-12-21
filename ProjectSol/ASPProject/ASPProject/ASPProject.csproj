@@ -53,6 +53,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin.aspx" />
     <Content Include="assets\admin_assets\css\style.css" />
     <Content Include="assets\admin_assets\img\apple-touch-icon.png" />
     <Content Include="assets\admin_assets\img\card.jpg" />
@@ -1189,6 +1190,16 @@
     <Content Include="include\css\font-awesome-free-5.15.1.css" />
     <Content Include="include\css\postcard.css" />
     <Content Include="include\dll\AjaxControlToolkit.dll" />
+    <Content Include="include\img\add.svg" />
+    <Content Include="include\img\add.png" />
+    <Content Include="include\img\cancel.png" />
+    <Content Include="include\img\check.png" />
+    <Content Include="include\img\delete.png" />
+    <Content Include="include\img\edit.png" />
+    <Content Include="include\img\cancel.svg" />
+    <Content Include="include\img\check.svg" />
+    <Content Include="include\img\delete.svg" />
+    <Content Include="include\img\edit.svg" />
     <Content Include="include\js\bootstrap-min-v4.3.1.js" />
     <Content Include="include\js\JQuery-ms-v1.3.2.js" />
     <Content Include="include\js\JQuery-v1.9.1.js" />
@@ -1215,6 +1226,13 @@
     <Content Include="Book Details.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="admin.aspx.cs">
+      <DependentUpon>admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin.aspx.designer.cs">
+      <DependentUpon>admin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Books.aspx.cs">
       <DependentUpon>Books.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

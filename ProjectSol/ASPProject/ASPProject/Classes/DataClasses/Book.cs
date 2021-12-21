@@ -245,7 +245,7 @@ namespace ASPProject.Classes
             {
                 ParameterName = "@Val10",
                 SqlDbType = System.Data.SqlDbType.VarChar,
-                Size = 18,
+                Size = 255,
                 Value = this.cover
             });
             cmd.Parameters.Add(new SqlParameter()

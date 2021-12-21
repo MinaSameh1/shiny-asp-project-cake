@@ -52,7 +52,7 @@
                             Text="Login" onclick="Button1_Click"></asp:Button>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a href="Register Page.aspx">Create an account</a></p>
+                      <p class="small mb-0">Don't have account? <a id="register" href="Register Page.aspx">Create an account</a></p>
                     </div>
                   </form>
 

@@ -5,6 +5,7 @@
     <form runat="server">
     <asp:ObjectDataSource ID="ObjectDataSource1" runat="server"></asp:ObjectDataSource>
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" class="table table-condensed table-hover"
+     OnRowCommand="GridView1_OnRowCommand"
     OnRowCancelingEdit="GridView1_RowCancelingEdit"   
 OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating"
     >
@@ -40,14 +41,17 @@ OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating"
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Edit">
                 <ItemTemplate>
-                    <asp:Button ID="btnEdit" runat="server" Text="Edit" CommandName="Edit" CommandArgument='<%# Eval("userID") %>' />
+                    <asp:Button ID="btnEdit" runat="server"  Text="Edit" CommandName="Edit" ToolTip="Edit" CommandArgument='<%# Eval("userID") %>' />
                 </ItemTemplate>
                 <EditItemTemplate>
-                    <asp:Button ID="btnUpdate" runat="server" Text="Update" CommandName="Update" CommandArgument='<%# Eval("userID") %>' />
+                    <asp:Button ID="btnUpdate" runat="server" Text="Update" CommandName="Update" ToolTip="Update" CommandArgument='<%# Eval("userID") %>' />
                 </EditItemTemplate>
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
+    <asp:Label ID="lblSuc" ForeColor="Green" runat="server" Text=""></asp:Label>
+    <asp:Label ID="lblFail" ForeColor="Red" runat="server" Text=""></asp:Label>
+    
     </form>
     <script type="text/javascript" src='./include/js/JQuery-v3.6.9.js'></script>
     <script type="text/javascript" src="assets/js/jquery.dataTables.min.js" />

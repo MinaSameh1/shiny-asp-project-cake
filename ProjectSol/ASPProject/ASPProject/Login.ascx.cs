@@ -37,13 +37,14 @@ namespace ASPProject
                 }
 
                 Session["userID"] = user.ID;
-                Session["userType"] = user.isAdmin;
+                Session["userType"] = (user.isAdmin) ? "Admin" : "User";
                 Session["email"] = user.email;
                 Session["userName"] = user.name;
                 
-                HttpCookie cookie = new HttpCookie("userName");
+                HttpCookie cookie = new HttpCookie("user");
                 cookie.Expires = DateTime.Now.AddMinutes(10);
                 cookie["userName"] = user.name;
+                cookie["userType"] = (user.isAdmin) ? "Admin" : "User";
                 Response.Cookies.Add(cookie);
 
                 db.close();

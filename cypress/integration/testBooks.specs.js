@@ -30,7 +30,7 @@ define("BOOKKKSSS", () => {
         cy.get('table:first');
         cy.contains('td', 'Last')  // gives you the cell 
             .siblings()  // gives you all the other cells in the row
-            .contains('a', '4') // finds the delete button
+            .contains('a', '4') // finds the button
             .click();
     });
 

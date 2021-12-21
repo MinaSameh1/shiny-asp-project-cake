@@ -14,7 +14,7 @@ CREATE TABLE pdf (
 );
 GO
 CREATE TABLE pdfDownloaded (
-	pdfID INT NOT NULL,
+	BookID INT NOT NULL,
 	userID INT NOT NULL, 
 	Downloaded DateTime NOT NULL,
 	CONSTRAINT fk_pdf_downloaded_user FOREIGN KEY (userID) REFERENCES users(userID)
@@ -25,6 +25,4 @@ INSERT INTO pdf VALUES(1,'./pdf/book1.pdf');
 
 SELECT * FROM books 
 LEFT JOIN pdf ON books.bookID = pdf.BookID;
-
-DELETE FROM books WHERE BookID = 6
 

@@ -15,6 +15,7 @@ namespace ASPProject
             {
                 panel1.Visible = false;
                 ProfilePanel.Visible = true;
+                admin.Visible = (((String)Session["userType"]) == "Admin");
             }
         }
     }

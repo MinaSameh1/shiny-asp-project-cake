@@ -40,14 +40,6 @@ namespace ASPProject
             }
         }
 
-        protected String getBooksCount()
-        {
-            Database db = new Database();
-            db.OpenCon();
-            Int32 count = db.getListBooks().Count;
-            return count.ToString();
-        }
-
         protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GridView1.PageIndex = e.NewPageIndex;

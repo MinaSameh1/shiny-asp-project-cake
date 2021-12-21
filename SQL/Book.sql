@@ -28,7 +28,7 @@ CREATE TABLE books (
   published_date date DEFAULT NULL,
   uploadedDate datetime DEFAULT NULL,
   series varchar(200) DEFAULT NULL,
-  cover varchar(20) DEFAULT NULL,
+  cover varchar(MAX) DEFAULT NULL,
   description text DEFAULT NULL,
   isApproved int DEFAULT NULL,
   PRIMARY KEY (BookID),

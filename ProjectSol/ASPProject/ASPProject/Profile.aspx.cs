@@ -14,70 +14,74 @@ namespace ASPProject
     public partial class Profile : System.Web.UI.Page
     {
         Int32 id;
+        DataTable dt;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["userID"] == null)
+                Response.Redirect("Login Page.aspx");
+
             if (!Page.IsPostBack)
             {
-            if (Session["userID"] == null)
-                Response.Redirect("index.aspx");
-            Database db = new Database();
-            db.OpenCon();
-            id = int.Parse(Session["userID"] + "");
-            DataTable dt = db.getUserTable(id);
-            GenerateRowsToColumnsTable(dt);
-            GridView1.DataSource = dt;
-            GridView1.DataBind();
+                if (Session["userID"] == null)
+                    Response.Redirect("index.aspx");
+                Database db = new Database();
+                db.OpenCon();
+                id = int.Parse(Session["userID"] + "");
+                dt = db.getUserTable(id);
+                if (dt.Rows.Count > 0)
+                {
+                    BindData(Page.IsPostBack);
+                }
+                else
+                {
+                    dt.Rows.Add(dt.NewRow());
+                    GridView1.DataSource = dt;
+                    GridView1.Rows[0].Cells.Clear();
+                    GridView1.Rows[0].Cells.Add(new TableCell());
+                    GridView1.Rows[0].Cells[0].ColumnSpan = dt.Columns.Count;
+                    GridView1.Rows[0].Cells[0].Text = "Must login First!";
+                    GridView1.Rows[0].Cells[0].HorizontalAlign = HorizontalAlign.Center;
+                }
+            }
+            else
+            {
+                if (dt == null)
+                {
+                    Database db = new Database();
+                    db.OpenCon();
+                    id = int.Parse(Session["userID"] + "");
+                }
+                BindData(Page.IsPostBack);
             }
 
         }
+
+        protected void BindData(bool isPostBack)
+        {
+
+            GridView1.DataSource = dt;
+            if (!isPostBack)
+            {
+                GridView1.DataBind();
+            }
+        }
+
 
         protected void GridView1_RowEditing(object sender, System.Web.UI.WebControls.GridViewEditEventArgs e)
         {
             //NewEditIndex property used to determine the index of the row being edited.  
             GridView1.EditIndex = e.NewEditIndex;
-            BindData();
-        }  
+            BindData(Page.IsPostBack);
+        }
 
-        protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e) 
+        protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             GridViewRow row = GridView1.Rows[e.RowIndex];
-            int userID = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Values[0]);
-            Database db = new Database();
-            User user = db.getUser(userID);
-            user.name = GridView1.DataKeys[e.RowIndex].Values[1].ToString();
-            user.email = GridView1.DataKeys[e.RowIndex].Values[2].ToString();
-            user.pass = GridView1.DataKeys[e.RowIndex].Values[3].ToString();
-            user.LastAccess = DateTime.Now;
-            DataClassMethods.DoUpdate(user);
-            GridView1.EditIndex = -1;  
-            DataBind();  
-        }
-
-        protected void BindData()
-        {
+            Label usrID= GridView1.Rows[e.RowIndex].FindControl("lblID") as Label;
+            Int32 userID = int.Parse(usrID.Text);
             Database db = new Database();
             db.OpenCon();
-            DataTable dt = db.getUserTable(id);
-            GridView1.DataSource = dt;
-            GridView1.DataBind();
-            db.close();
-        }
-
-        protected void GridView1_RowCancelingEdit(object sender, System.Web.UI.WebControls.GridViewCancelEditEventArgs e)
-        {
-            //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
-            GridView1.EditIndex = -1;
-            BindData();
-        }  
-
-        protected void GridView1_OnRowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            if (e.CommandName != "Edit" || e.CommandName != "Update") return;
-            if( e.CommandName == "Update")
-            {
-            int id = Convert.ToInt32(e.CommandArgument);
-            int userID = Convert.ToInt32(GridView1.DataKeys[0].Values[0]);
-            Database db = new Database();
             User user = db.getUser(userID);
             TextBox name = GridView1.Rows[0].FindControl("NameText") as TextBox;
             TextBox email = GridView1.Rows[0].FindControl("EmailText") as TextBox;
@@ -87,9 +91,48 @@ namespace ASPProject
             user.pass = pass.Text;
             user.LastAccess = DateTime.Now;
             DataClassMethods.DoUpdate(user);
-            }
+            GridView1.EditIndex = -1;
+            dt = db.getUserTable(userID);
+            GridView1.DataSource = dt;
+            db.close();
+            GridView1.DataBind();
         }
 
+
+        protected void GridView1_RowCancelingEdit(object sender, System.Web.UI.WebControls.GridViewCancelEditEventArgs e)
+        {
+            //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
+            GridView1.EditIndex = -1;
+            BindData(Page.IsPostBack); 
+        }
+
+
+        protected void GridView1_OnRowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            Console.WriteLine("TEST");
+            if (e.CommandName != "Edit" || e.CommandName != "Update") return;
+
+            /*
+            if (e.CommandName == "Update")
+            {
+                int id = Convert.ToInt32(e.CommandArgument);
+                int userID = Convert.ToInt32(GridView1.DataKeys[0].Values[0]);
+                Database db = new Database();
+                User user = db.getUser(userID);
+                TextBox name = GridView1.Rows[0].FindControl("NameText") as TextBox;
+                TextBox email = GridView1.Rows[0].FindControl("EmailText") as TextBox;
+                TextBox pass = GridView1.Rows[0].FindControl("passText") as TextBox;
+                user.name = name.Text;
+                user.email = email.Text;
+                user.pass = pass.Text;
+                user.LastAccess = DateTime.Now;
+                DataClassMethods.DoUpdate(user);
+             */
+            }
+
+
+
+        /* Was gonna use it but meh
         private DataTable GenerateRowsToColumnsTable(DataTable MainTable)
         {
             DataTable OutputTable = new DataTable();
@@ -122,6 +165,7 @@ namespace ASPProject
 
             return OutputTable;
         }
+         */
 
     }
 }

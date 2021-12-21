@@ -78,7 +78,7 @@
         </Columns>
     </asp:GridView>
     </form>
-  <script type="text/javascript" src=.\include\js\JQuery-v3.6.9.js" ></script>
+  <script type="text/javascript" src="./include/js/JQuery-v3.6.9.js" ></script>
   <script type="text/javascript" src="assets/js/jquery.dataTables.min.js" />
   <script type="text/javascript">
       $(document).ready(function () {

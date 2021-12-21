@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
+using ASPProject.Classes;
 
 namespace ASPProject
 {
@@ -16,6 +17,7 @@ namespace ASPProject
             {
                 panel1.Visible = false;
                 ProfilePanel.Visible = true;
+                admin.Visible = (((String)Session["userType"]) == "Admin");
             }
         }
 

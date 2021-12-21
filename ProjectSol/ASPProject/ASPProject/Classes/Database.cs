@@ -108,7 +108,7 @@ namespace ASPProject
                 {
                     PrepareCmd();
                 }
-
+                cmd.Parameters.Clear();
                 if (name == "0" && email != "0")
                 {
                     cmd.CommandText =
@@ -140,6 +140,7 @@ namespace ASPProject
                 {
                     cmd.CommandText =
                         @"SELECT * FROM users WHERE userName = @Val1 AND Email = @Val2 AND pass = @Val3";
+                    cmd.Parameters.Clear();
                     cmd.Parameters.Add(new SqlParameter()
                     {
                         ParameterName = "@Val1",
@@ -180,7 +181,7 @@ namespace ASPProject
                         reader.GetString(1).ToString(),
                         reader.GetString(2).ToString(),
                         reader.GetString(3).ToString(),
-                        reader.GetInt32(4),
+                        reader.IsDBNull(4) ? 0 : reader.GetInt32(4),
                         reader.IsDBNull(5) ? DateTime.MinValue : reader.GetDateTime(5),
                         (reader.IsDBNull(6) ? false : reader.GetInt32(6) == 1 ? true : false),
                         reader.GetInt32(7) == 0 ? false : true,
@@ -208,6 +209,7 @@ namespace ASPProject
                 }
                 cmd.CommandText =
                     @"SELECT * FROM users WHERE userID=@Val";
+                cmd.Parameters.Clear();
                 cmd.Parameters.Add(new SqlParameter()
                 {
                     ParameterName = "@Val",
@@ -241,9 +243,9 @@ namespace ASPProject
                 // return it 
                 return user;
             }
-            catch
+            catch (Exception ex)
             {
-                throw new Exception("Fatal Error:  error in GetUser by ID");
+                throw new Exception("GetUser by ID:" + ex);
             }
         }
 
@@ -258,6 +260,7 @@ namespace ASPProject
                 }
                 cmd.CommandText =
                     @"SELECT * FROM pdf WHERE bookID=@Val";
+                cmd.Parameters.Clear();
                 cmd.Parameters.Add(new SqlParameter()
                 {
                     ParameterName = "@Val",
@@ -337,6 +340,7 @@ namespace ASPProject
             }
             cmd.CommandText =
                 @"SELECT * FROM books WHERE title LIKE '%'+@Val+'%'";
+            cmd.Parameters.Clear();
             cmd.Parameters.Add(new SqlParameter()
             {
                 ParameterName = "@Val",
@@ -361,6 +365,7 @@ namespace ASPProject
                 }
                 cmd.CommandText =
                     @"SELECT * FROM books WHERE BookID=@ID";
+                cmd.Parameters.Clear();
                 cmd.Parameters.Add(new SqlParameter()
                 {
                     ParameterName = "@ID",
@@ -495,32 +500,9 @@ namespace ASPProject
                 {
                     PrepareCmd();
                 }
+                cmd.Parameters.Clear();
                 cmd.CommandText =
-                    @"DELETE FROM @Table WHERE @ObjName=@ObjId";
-
-                cmd.Parameters.Add(new SqlParameter()
-                {
-                    ParameterName = "@Table",
-                    SqlDbType = SqlDbType.VarChar,
-                    Size = 18,
-                    Value = TableName
-                });
-
-                cmd.Parameters.Add(new SqlParameter()
-                {
-                    ParameterName = "@ObjName",
-                    SqlDbType = SqlDbType.VarChar,
-                    Size = 18,
-                    Value = ObjName
-                });
-
-                cmd.Parameters.Add(new SqlParameter()
-                {
-                    ParameterName = "@ObjId",
-                    SqlDbType = SqlDbType.Int,
-                    Size = 4,
-                    Value = ObjId
-                });
+                    @"DELETE FROM " + TableName + " WHERE " + ObjName + "=" + ObjId;
                 cmd.Prepare();
                 cmd.ExecuteNonQuery();
             }
@@ -532,14 +514,15 @@ namespace ASPProject
 
         internal DataTable getUserTable(int id)
         {
-        try
-        {
+            try
+            {
                 if (cmd == null)
                 {
                     PrepareCmd();
                 }
                 cmd.CommandText =
                     @"SELECT * FROM users WHERE userID=@Val";
+                cmd.Parameters.Clear();
                 cmd.Parameters.Add(new SqlParameter()
                 {
                     ParameterName = "@Val",
@@ -553,9 +536,95 @@ namespace ASPProject
                 td.Load(cmd.ExecuteReader());
                 return td;
             }
-            catch
+            catch (Exception ex)
             {
-                throw new Exception("Fatal Error:  error in GetUser by ID");
+                throw new Exception("err:" + ex);
+            }
+        }
+
+        internal DataTable getUserTable(String name)
+        {
+            try
+            {
+                if (cmd == null)
+                {
+                    PrepareCmd();
+                }
+                cmd.Parameters.Clear();
+                cmd.CommandText =
+                    @"SELECT * FROM users WHERE userName=@Val";
+                cmd.Parameters.Clear();
+                cmd.Parameters.Add(new SqlParameter()
+                {
+                    ParameterName = "@Val",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 18,
+                    Value = name
+                });
+
+                cmd.Prepare();
+                DataTable td = new DataTable();
+                td.Load(cmd.ExecuteReader());
+                return td;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("err:" + ex);
+            }
+        }
+
+        internal Book getBook(string title)
+        {
+            try
+            {
+                if (cmd == null)
+                {
+                    PrepareCmd();
+                }
+                cmd.CommandText =
+                    @"SELECT * FROM books WHERE title=@title";
+                cmd.Parameters.Clear();
+                cmd.Parameters.Add(new SqlParameter()
+                {
+                    ParameterName = "@title",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 18,
+                    Value = title
+                });
+                SqlDataReader reader;
+                Book book = new Book(); ;
+                using (reader = cmd.ExecuteReader())
+                {
+                    if (reader.FieldCount == 0)
+                        return new Book();
+                    while (reader.Read())
+                    {
+                        book.BookID = reader.GetInt32(0);
+                        book.title = reader.GetString(1);
+                        book.author = reader.GetString(2);
+                        book.total_pages = reader.GetInt32(3);
+                        book.SelerID = reader.GetInt32(4);
+                        book.Lang = reader.GetString(5);
+                        book.published_date = reader.GetDateTime(6);
+                        if (!reader.IsDBNull(7))
+                            book.uploadedDate = reader.GetDateTime(7);
+                        else
+                            book.uploadedDate = DateTime.Now;
+                        if (!reader.IsDBNull(8))
+                            book.series = reader.GetString(8);
+                        else
+                            book.series = "nan";
+                        book.cover = reader.GetString(9);
+                        book.description = reader.GetString(10);
+                        book.isApproved = (reader.GetInt32(11) == 1) ? true : false;
+                    }
+                }
+                return book;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Fatal Error: error in GetBook\n" + ex);
             }
         }
     }

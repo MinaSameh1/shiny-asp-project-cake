@@ -12,6 +12,7 @@ namespace ASPProject.Classes
 {
     public class User : DataClass
     {
+
         public int ID { get; set; }
         public string name { get; set; }
         public int age { get; set; }
@@ -52,6 +53,19 @@ namespace ASPProject.Classes
             this.LastAccess = LastAccess;
         }
 
+        public User(string name, string pass, string email, string type)
+        {
+            this.ID = 0;
+            this.name = name;
+            this.pass = pass;
+            this.email = email;
+            this.age = 0;
+            this.DOB = DateTime.Now;
+            this.isAdmin = (!String.IsNullOrEmpty(type));
+            this.Blocked = false;
+            this.LastAccess = DateTime.Now;
+        }
+
         public void Update()
         {
             if (DOB == DateTime.MinValue)
@@ -75,6 +89,8 @@ namespace ASPProject.Classes
                               ", UserBlocked = @Val7 " +
                               ", lastaccess = @Val8 " +
                               "WHERE userID = @ID";
+
+            cmd.Parameters.Clear();
 
             cmd.Parameters.Add(new SqlParameter()
             {
@@ -164,7 +180,7 @@ namespace ASPProject.Classes
                  return;
              Database db = new Database();
              db.OpenCon();
-             db.DeleteObject("users", "ID", this.ID);
+             db.DeleteObject("users", "userID", this.ID);
          }
 
 
@@ -185,7 +201,7 @@ namespace ASPProject.Classes
                                    ", @Val7 " +
                                    ", @Val8 ) ";
 
-
+                 cmd.Parameters.Clear();
                  cmd.Parameters.Add(new SqlParameter()
                  {
                      ParameterName = "@Val1",
