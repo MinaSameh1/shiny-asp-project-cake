@@ -17,7 +17,7 @@ namespace ASPProject
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            GridView1.UseAccessibleHeader = true;
         }
 
         protected void BindData()
@@ -51,7 +51,7 @@ namespace ASPProject
         protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GridView1.PageIndex = e.NewPageIndex;
-            GridView1.DataBind();
+            BindData();
         }
 
 
@@ -80,8 +80,6 @@ namespace ASPProject
             if (e.CommandName != "Add") return;
             int id = Convert.ToInt32(e.CommandArgument);
             Response.Redirect("Book Details.aspx?ID=" + id);
-
-
         }
 
         protected void lnkView(object sender, EventArgs e)

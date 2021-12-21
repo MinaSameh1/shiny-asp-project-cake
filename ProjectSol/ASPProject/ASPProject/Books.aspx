@@ -19,10 +19,9 @@
     <PagerSettings Mode="NumericFirstLast" PageButtonCount="4" FirstPageText="First" LastPageText="Last"/>  
 
         <Columns>
-
             <asp:TemplateField HeaderText="Cover">
                 <ItemTemplate>
-                    <img src='<%#Eval("cover")%>' />
+                    <img src='<%#Eval("cover")%>' width=200 height=200 />
                 </ItemTemplate>
             </asp:TemplateField>
 

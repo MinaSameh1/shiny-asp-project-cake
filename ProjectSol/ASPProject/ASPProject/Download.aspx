@@ -9,26 +9,24 @@
           <h1 id="title">Thank you for Using our services</h1>
           <h2 id="down">Download begins now</h2>
         </div>
+        <br />
+        <br />
         <form runat=server  >
-        <iframe class=generate_file_asynchronously id=generate_file_asynchronously><a style="display:hidden;" href="DownloadFile.ashx"></a></iframe>
-        <asp:Button ID="btnDownload" runat="server" Text="Download File" 
+        <asp:Button ID="btnDownload" runat="server" Text="If Download Doesn't Begin Click Me! Download File" 
             OnClick="btnDownload_Click"/>
         </form>
       </div>
     </div>
 </section>
+<div onload="download()"></div>
+<a id="dl" style="display: none" 
+    href="DownloadFile.ashx" 
+    download>Download</a>
 
-<script type="text/javascript" src=.\include\js\JQuery-v3.6.9.js" ></script>
 <script type="text/javascript">
-    $('.generate_file_asynchronously').click(function () {
-        var url = $(this).attr('href');
-        $.get(url, function (file_url) {
-            window.location.href = file_url;
-        });
-
-        return false;
-    });
-
+(function download() {
+    document.getElementById('dl').click();
+})()
 </script>
 
 </asp:Content>

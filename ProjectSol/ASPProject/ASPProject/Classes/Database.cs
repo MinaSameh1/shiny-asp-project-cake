@@ -529,6 +529,35 @@ namespace ASPProject
                 throw new Exception("Fatal Error: error in GetUser by values" + ex);
             }
         }
+
+        internal DataTable getUserTable(int id)
+        {
+        try
+        {
+                if (cmd == null)
+                {
+                    PrepareCmd();
+                }
+                cmd.CommandText =
+                    @"SELECT * FROM users WHERE userID=@Val";
+                cmd.Parameters.Add(new SqlParameter()
+                {
+                    ParameterName = "@Val",
+                    SqlDbType = SqlDbType.Int,
+                    Size = 4,
+                    Value = id
+                });
+
+                cmd.Prepare();
+                DataTable td = new DataTable();
+                td.Load(cmd.ExecuteReader());
+                return td;
+            }
+            catch
+            {
+                throw new Exception("Fatal Error:  error in GetUser by ID");
+            }
+        }
     }
 }
 

@@ -41,19 +41,23 @@ define("BOOKKKSSS", () => {
             .click({ force: true });
         cy.get("h5")
             .should('contain', "Login to Your Account");
+
         cy.get('input[id=ContentPlaceHolder1_Login1_UserName]')
             .click({ force: true }).type(username);
+
         cy.get('input[id=ContentPlaceHolder1_Login1_PassText]')
             .click({ force: true }).type(password);
+
         cy.get('input[id=ContentPlaceHolder1_Login1_Button1]')
-            .click();
+            .click({force : true});
+
         cy.get("#ProfilePanel")
             .get('span').should('contain', 'Welcome! ' + username);
+
         cy.get('input[id=ContentPlaceHolder1_Button1]')
             .click({ force: true });
 
         cy.get('h2[id=down]').should('contain', 'Download begins now');
 
-        cy.get("span[id=ContentPlaceHolder1_Label1]").should('contain','TEST');
     });
 });

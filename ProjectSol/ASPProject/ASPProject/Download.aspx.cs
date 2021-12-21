@@ -18,7 +18,6 @@ namespace ASPProject
             if (!Page.IsPostBack)
             {
                 Response.AddHeader("Refresh", "3; url=Profile.aspx");
-                down(Response);
             }
         }
 

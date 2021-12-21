@@ -26,6 +26,9 @@ Cypress.on('uncaught:exception', (err, runnable) => {
         .click();
         cy.get("#ProfilePanel")
         .get('span').should('contain','Welcome! ' + username);
+
+        cy.get('li[class=dropdown]')
+        .get('a[id=Profile]').click({force : true});
     });
 
 });
