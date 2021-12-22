@@ -232,7 +232,7 @@ namespace ASPProject
                         user.name = reader.GetString(1);
                         user.pass = reader.GetString(2);
                         user.email = reader.GetString(3);
-                        user.age = reader.GetInt32(4);
+                        user.age = reader.IsDBNull(4) ? 0 : reader.GetInt32(4);
                         user.DOB = reader.IsDBNull(5) ? DateTime.Now : reader.GetDateTime(5);
                         user.isAdmin =
                             (reader.IsDBNull(6) ? false : reader.GetInt32(6) == 1 ? true : false);

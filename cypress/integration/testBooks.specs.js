@@ -27,6 +27,7 @@ define("BOOKKKSSS", () => {
     });
 
     it('Can switch pages', () => {
+        cy.visit('localhost:8000/Books.aspx');
         cy.get('table:first');
         cy.contains('td', 'Last')  // gives you the cell 
             .siblings()  // gives you all the other cells in the row
