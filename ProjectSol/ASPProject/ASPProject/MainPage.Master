@@ -46,13 +46,13 @@
 
           <asp:panel runat="server" id='panel1' class="Panel1"><li class="login"><a class="nav-link scrollto" href="Login Page.aspx"> Login Or Register</a></li></asp:panel>
 
-          <asp:panel ID="ProfilePanel" runat="server" Visible=false>
+          <asp:panel ID="ProfilePanel" runat="server" Visible="false">
            <li class="dropdown"><a href="#"><span>Welcome! <%= Session["userName"] %></span> <i class="bi bi-chevron-down"></i></a>
+           <ul>
+                <li><a id="Profile" class="nav-link scrollto" href="Profile.aspx">Profile</a></li>
                 <asp:panel id="admin" visible="false" runat="server">
                     <li><a id="Admin" href="admin.aspx">Admin Page</a></li>
                 </asp:panel>
-           <ul>
-                <li><a id="Profile" class="nav-link scrollto" href="Profile.aspx">Profile</a></li>
                 <li><a id="Logout" class="nav-link scrollto" href="Logout.aspx">Logout</a></li>
            </ul>
 

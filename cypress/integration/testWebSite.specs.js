@@ -15,6 +15,14 @@ Cypress.on('uncaught:exception', (err, runnable) => {
         cy.visit('localhost:8000/index.aspx');
     });
 
+    var randomName = faker.internet.userName();
+    var randomEmail = faker.internet.email();
+    var pass = "123456";
+    const adminName = "test";
+    const adminPass = "1234";
+    const username = 'wsanchez';
+    const password = '1234';
+
     it('Can Open the Website', () => {
         cy.get("div.container");
     });
@@ -23,6 +31,44 @@ Cypress.on('uncaught:exception', (err, runnable) => {
     var randomName = faker.internet.userName();
     var randomEmail = faker.internet.email();
     var pass = "123456";
+    
+    it('Can Open Books page and switch pages', () => {
+        cy.visit('localhost:8000/Books.aspx');
+        cy.get('table:first');
+        cy.contains('td', 'Last')  // gives you the cell 
+            .siblings()  // gives you all the other cells in the row
+            .contains('a', '4') // finds the button
+            .click();
+    });
+
+
+    it('Login then purchase a book', () => {
+        cy.visit('localhost:8000/Books.aspx');
+        cy.get('a[id=ContentPlaceHolder1_GridView1_lkAdd_3]')
+            .click({ force: true });
+        cy.get('input[id=ContentPlaceHolder1_Button1]')
+            .click({ force: true });
+        cy.get("h5")
+            .should('contain', "Login to Your Account");
+
+        cy.get('input[id=ContentPlaceHolder1_Login1_UserName]')
+            .click({ force: true }).type(username);
+
+        cy.get('input[id=ContentPlaceHolder1_Login1_PassText]')
+            .click({ force: true }).type(password);
+
+        cy.get('input[id=ContentPlaceHolder1_Login1_Button1]')
+            .click({force : true});
+
+        cy.get("#ProfilePanel")
+            .get('span').should('contain', 'Welcome! ' + username);
+
+        cy.get('input[id=ContentPlaceHolder1_Button1]')
+            .click({ force: true });
+
+        cy.get('h2[id=down]').should('contain', 'Download begins now');
+
+    });
 
     it('can register', () => {
         // Get to login 
@@ -52,7 +98,6 @@ Cypress.on('uncaught:exception', (err, runnable) => {
         .click({force : true});
     });
 
-    var newName = faker.internet.userName();
 
     it('Can Login, go to profile and Edit, then logout', () => {
         cy.get('#panel1').click();
@@ -64,6 +109,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
         .click({force : true}).type(pass);
         cy.get('input[id=ContentPlaceHolder1_Login1_Button1]')
         .click({force : true});
+        // Check if he is logged in
         cy.get("#ProfilePanel")
         .get('span').should('contain','Welcome! ' + randomName);
 
@@ -75,7 +121,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
         cy.get('input[id=ContentPlaceHolder1_GridView1_btnEdit_0]')
         .click({ force : true });
         cy.get('input[id=ContentPlaceHolder1_GridView1_NameText_0]')
-        .click({force:true}).clear().type(newName);
+        .click({force:true}).clear().type(randomName);
         cy.get('input[id=ContentPlaceHolder1_GridView1_passText_0]')
         .click({force:true}).clear().type('12345678');
         cy.get('input[id=ContentPlaceHolder1_GridView1_btnUpdate_0]')
@@ -87,8 +133,6 @@ Cypress.on('uncaught:exception', (err, runnable) => {
         cy.get('li[class=dropdown]')
         .get('a[id=Logout]').click({force : true});
     });
-    const adminName = "test";
-    const adminPass = "1234";
 
     it('Can login as Admin', ()=>{
         // Login then as admin
@@ -115,8 +159,6 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 
     it('Can Add new book and user ', () => {
 
-        const adminName = "test";
-        const adminPass = "1234";
 
         // Login then as admin
         cy.visit('localhost:8000/index.aspx');
@@ -136,10 +178,13 @@ Cypress.on('uncaught:exception', (err, runnable) => {
         cy.get('li[class=dropdown]')
             .get('a[id=Admin]').click({ force: true });
 
-        var randomName = faker.internet.userName(); 
-        var randomEmail = faker.internet.email();
-        var pass = "123456";
+        // Our Vars that we will use randomized
+        var title = faker.name.title();
+        var author = faker.name.firstName();
+        randomName = faker.internet.userName();
+        randomEmail = faker.internet.email();
 
+        // Go the the user and add it 
         cy.get('input[id=ContentPlaceHolder1_GridView1_nameNew]')
         .click({force:true}).type(randomName);
         cy.get('input[id=ContentPlaceHolder1_GridView1_emailNew]')
@@ -158,17 +203,14 @@ Cypress.on('uncaught:exception', (err, runnable) => {
         .contains('td',randomName)
         .should('contain',randomName);
 
-        // Upload File
-        cy.fixture('doesntwork.png').then(fileContent => {
+        cy.fixture('fine.png').then(() => {
             cy.get('input[type="file"]').attachFile({
-                fileContent: fileContent.toString(),
-                fileName: 'doesntwork.png',
+                fileName: 'fine.png',
                 mimeType: 'image/png'
             });
         });
 
-        var title = faker.name.title();
-        var author = faker.name.firstName();
+
 
         // Edit titlte and author
         cy.get('input[id=ContentPlaceHolder1_GridView2_newTitle]')
@@ -190,6 +232,62 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 
     });
 
+    it('Can Add new user as Admin', () => {
+        // Login then as admin
+        cy.visit('localhost:8000/index.aspx');
+        cy.get('#panel1').click();
+        cy.get("h5")
+            .should('contain',"Login to Your Account");
+        cy.get('input[id=ContentPlaceHolder1_Login1_UserName]')
+        .click({force : true}).type(adminName);
+        cy.get('input[id=ContentPlaceHolder1_Login1_PassText]')
+        .click({force : true}).type(adminPass);
+        cy.get('input[id=ContentPlaceHolder1_Login1_Button1]')
+        .click();
+        cy.get("#ProfilePanel")
+            .get('span').should('contain', 'Welcome! ' + adminName);
+
+        // Go to admin page
+        cy.get('li[class=dropdown]')
+            .get('a[id=Admin]').click({ force: true });
+
+        randomName = faker.internet.userName();
+        randomEmail = faker.internet.email();
+        // Add New user
+        cy.get('input[id=ContentPlaceHolder1_GridView1_nameNew]')
+        .click({force:true}).type(randomName);
+        cy.get('input[id=ContentPlaceHolder1_GridView1_emailNew]')
+        .click({force:true}).type(randomEmail);
+        cy.get('input[id=ContentPlaceHolder1_GridView1_passNew]')
+        .click({force:true}).type(pass);
+        cy.get('input[id=ContentPlaceHolder1_GridView1_typeNew]')
+        .click({ force : true}).type('1');
+        cy.get('input[id=ContentPlaceHolder1_GridView1_btnAddUser]')
+        .click({ force : true});
+
+        // LogOut
+        cy.get('li[class=dropdown]')
+        .get('a[id=Logout]').click({force : true});
+
+        // Login then as new admin 
+        cy.visit('localhost:8000/index.aspx');
+        cy.get('#panel1').click();
+        cy.get("h5")
+            .should('contain',"Login to Your Account");
+        cy.get('input[id=ContentPlaceHolder1_Login1_UserName]')
+        .click({force : true}).type(randomName);
+        cy.get('input[id=ContentPlaceHolder1_Login1_PassText]')
+        .click({force : true}).type(randomEmail);
+        cy.get('input[id=ContentPlaceHolder1_Login1_Button1]')
+        .click();
+        cy.get("#ProfilePanel")
+            .get('span').should('contain', 'Welcome! ' + randomName);
 
 
+        // Go to admin page
+        cy.get('li[class=dropdown]')
+            .get('a[id=Admin]').click({ force: true });
+
+    });
 });
+  
