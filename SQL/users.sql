@@ -28,7 +28,7 @@ GO
 
 -- A few inserts 
 INSERT INTO users(userName,pass,age,Email,UserBlocked) VALUES('user','1234',18,'user@email.com',0);
-INSERT INTO users(userName,pass,age,Email,UserBlocked) VALUES('user2','1234',21,'user@email.com',0);
+INSERT INTO users(userName,pass,age,Email,UserBlocked) VALUES('user2','12345',21,'user@email.com',0);
 INSERT INTO users(userName,pass,age,Email,UserBlocked) VALUES('Nameee','1234',18,'user@email.com',0);
 
 -- a Procedure
