@@ -1,5 +1,6 @@
 
 const faker = require('faker');
+import 'cypress-file-upload';
 
 define("Library Books - Register" , ()=> {
 
@@ -10,12 +11,14 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 });
 
     beforeEach('Visit Website', () => {
+        cy.viewport(1920, 1080);
         cy.visit('localhost:8000/index.aspx');
     });
 
     it('Can Open the Website', () => {
         cy.get("div.container");
     });
+
 
     var randomName = faker.internet.userName();
     var randomEmail = faker.internet.email();
@@ -60,13 +63,13 @@ Cypress.on('uncaught:exception', (err, runnable) => {
         cy.get('input[id=ContentPlaceHolder1_Login1_PassText]')
         .click({force : true}).type(pass);
         cy.get('input[id=ContentPlaceHolder1_Login1_Button1]')
-        .click();
+        .click({force : true});
         cy.get("#ProfilePanel")
         .get('span').should('contain','Welcome! ' + randomName);
 
         // Go to profile
         cy.get('li[class=dropdown]')
-        .get('a[id=Profile]');
+        .get('a[id=Profile]').click({force : true});
 
         // Edit 
         cy.get('input[id=ContentPlaceHolder1_GridView1_btnEdit_0]')
@@ -111,7 +114,6 @@ Cypress.on('uncaught:exception', (err, runnable) => {
     });
 
     it('Can Add new book and user ', () => {
-        cy.viewport(1920, 1080);
 
         const adminName = "test";
         const adminPass = "1234";
@@ -149,7 +151,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
         cy.get('input[id=ContentPlaceHolder1_GridView1_btnAddUser]')
         .click({ force : true});
 
-        cy.get('a[href="javascript:__doPostBack(\'ctl00$ContentPlaceHolder1$GridView1\',\'Page$Last\')"]')
+        cy.get('[colspan="6"] > table > tbody > tr > :nth-child(3) > a')
         .click({ force : true});
 
         cy.get('table:first')

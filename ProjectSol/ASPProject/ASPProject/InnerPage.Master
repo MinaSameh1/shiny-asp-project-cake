@@ -73,7 +73,7 @@ background: #fff;
         <ul>
           <li><a class="nav-link scrollto " href="index.aspx">Home</a></li>
           <li><a class="nav-link scrollto" href="index.aspx#about">About</a></li>
-          <li><a class="nav-link scrollto" href="books.aspx">Books</a></li>
+          <li><a class="nav-link scrollto" href="Books.aspx">Books</a></li>
           <asp:panel runat="server" id='panel1' class="Panel1"><li class="login"><a class="nav-link scrollto" href="Login Page.aspx"> Login Or Register</a></li></asp:panel>
 
           <asp:panel ID="ProfilePanel" runat="server" Visible="false">
