@@ -9,7 +9,7 @@ one for every part of the website, and one large test that took me like a 100 se
 I don't consider this project perfect but it got the job done and it was the first time trying out test driven develompent, really fun and helpful,
 I am glad on how it came out.
 
-I recommend checking out [Database](https://github.com/MinaSameh1/shiny-asp-project-cake/blob/master/ProjectSol/ASPProject/ASPProject/Classes/Database.cs) file and the cypress directory :) 
+I recommend checking out [Database](https://github.com/MinaSameh1/shiny-asp-project-cake/blob/master/ProjectSol/ASPProject/ASPProject/Classes/Database.cs) file and the [Cypress](https://github.com/MinaSameh1/shiny-asp-project-cake/tree/master/cypress/integration) directory :) 
 
 I used themes from [Bootstrapmade](https://bootstrapmade.com/) all pages are from them and modified for personal use. 
 
